@@ -4832,8 +4832,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "BHXH Mail_.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: hoang mhtran (F46462XNAK)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hoang Duy Tran (8297VN9BF6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hoang Duy Tran (NCECY78U57)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hoang Duy Tran (NCECY78U57)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4883,7 +4883,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.bhxhmail;
 				PRODUCT_NAME = "BHXH Mail_.temp_caseinsensitive_rename";
-				PROVISIONING_PROFILE = "e1ef2af3-4ca0-40b4-b316-a19cf3da03fc";
+				PROVISIONING_PROFILE = "e2aad4a7-a123-4a96-8368-6999b2df9dfe";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
 				VALID_ARCHS = "armv7 armv7s arm64";
