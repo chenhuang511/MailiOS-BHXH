@@ -124,7 +124,10 @@ int current;
 //    }
 
     UIImageView *mailImageType = [[UIImageView alloc] initWithImage:image];
-    [mailImageType setFrame:CGRectMake(15, 5, 30, 40)];
+    [mailImageType setFrame:CGRectMake(15, 5, 30, 30)];
+    mailImageType.layer.cornerRadius = 8;
+    mailImageType.clipsToBounds = YES;
+    
     [accountView addSubview:mailImageType];
     UILabel *displayName = [[UILabel alloc] init];
     displayName.textColor = [UIColor whiteColor];

@@ -12,7 +12,7 @@
 
 #endif /* Constants_h */
 
-#define barColor @"#ff8d1e"
+#define barColor @"#3790CF"
 
 #define menuBackgroundColor @"#232323"
 
