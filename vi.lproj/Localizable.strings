@@ -1,0 +1,219 @@
+/* 
+  Localizable.strings
+  BHXH Mail_
+
+  Created by HungNP on 8/25/14.
+  Copyright (c) 2014 com.inkmobility. All rights reserved.
+*/
+
+//Menu
+"Inbox"       = "Hộp thư đến";
+"Attachments" = "Thư đính kèm";
+"Sent"        = "Thư đã gửi";
+"AllMail"     = "Tất cả thư";
+"Spam"        = "Thư rác";
+"Trash"       = "Thùng rác";
+"Logout"      = "Đăng xuất";
+"Confirm"     = "Xác nhận đăng xuất?";
+"View"        = "Xem";
+"Ok"          = "Đồng ý";
+"Out"         = "Thoát";
+"Cancel"      = "Bỏ qua";
+"Send"        = "Gửi";
+"Compose"     = "Soạn thư";
+"Back"        = "Trở về";
+"Config"      = "Cài đặt";
+"Preview"      = "Xem trước";
+"DownloadData"  = "Tải về";
+"ConfigToken" = "Cài đặt Token";
+"AlwaysSign"  = "Luôn tạo chữ ký số";
+"Cert" = "Chi tiết";
+"Off"  ="Tắt";
+"Yes"   = "Có";
+"No"   = "Không";
+"TurnOn" = "Bật";
+"TurnOff" = "Tắt";
+"ConnectProblem" = " Lỗi kết nối! ";
+
+//Compose
+"TokenSetting"  = "Cài đặt Token";
+"From"        = "Từ";
+"To"          = "Tới:";
+"Subject"     = "Chủ đề:";
+"AttachFile"  = "Đính kèm";
+"SignEmail"   = "Ký số email";
+"EncryptEmail"= "Mã hoá email";
+"Success"     = "Gửi email thành công!";
+"SecureOptions" = "Bảo mật";
+"ChooseSign" = "Bạn chọn ký số email";
+
+//Login
+"iMailLogin"   = "Đăng nhập iMail";
+"iMailLogout"  = "Đăng xuất iMail";
+"Login"       = "Đăng nhập";
+"UserInfo"    = "THÔNG TIN NGƯỜI DÙNG";
+"DisplayName" = "Người dùng:";
+"MailBox"     = "Hòm thư:";
+"Username"    = "Tài khoản:";
+"Password"    = "Mật khẩu:";
+"Address"     = "Địa chỉ:";
+"Port"        = "Cổng";
+"DateExpire"  = "Ngày hết hạn";
+"Required"    = "Yêu cầu";
+"Optional"    = "Tuỳ chọn";
+"InvalidEmail_" = "Vui lòng nhập đúng định dạng email!";
+//Alert
+"OtherAtt"    ="đính kèm khác";
+"TurnOffSeEmail" = "      Tắt bảo mật email";
+"ChooseSecurity" = "Chọn thiết bị bảo mật";
+"EmailSecurity" = "Bảo vệ bằng mật khẩu token";
+"DeviceSecurity" = "Thiết bị bảo mật";
+"DeviceSerial"  =  "Serial của thiết bị";
+"SetUpSercu" = "Thiết lập bảo mật";
+"CurrentSecurity" = "Trạng thái bảo mật hiện tại";
+"TurnOffSecurity" = "Tắt bảo mật email thành công!";
+"TokenProtect" = "Cập nhật bảo mật email bằng Soft Token thành công!";
+"SecurityDevice" = "Chưa chọn thiết bị bảo mật!";
+"PasswordWrong" = "Mật khẩu sai!";
+"CheckingPass" = "Đang kiểm tra mật khẩu Token...";
+"PassisEmpty" = "Mật khẩu trống";
+"CantLogin" = "Không thể đăng nhập Token";
+"ConnectToToken" = "Đang kết nối Token...";
+"NoToken"     = "Chưa cài đặt Token!";
+"TokenPass"         = "Mật khẩu Token";
+"TokenPassWrong" = "Sai mật khẩu Token";
+"ChooseCertSuccess"  = "Chọn chứng thư thành công!";
+"Error"         = "Lỗi";
+"ErrorToken"  = "Lỗi kết nối Token";
+"NotSetup"    = "Chưa cài đặt mCA Token";
+"EnterAll"    = "Vui lòng nhập đầy đủ thông tin!";
+"Notifi"      = "Thông báo";
+"CheckInternet" = "Vui lòng kiểm tra lại kết nối Internet!";
+"PleaseWait"  = "Vui lòng chờ";
+"LoginError"  = "Đăng nhập thất bại";
+
+"2StepAuthenError" = "Vui lòng tắt bảo mật 2 lớp để đăng nhập tài khoản!";
+
+"LoginErrorMsg"    = "Hãy kiểm tra lại tên tài khoản, mật khẩu hoặc thiết lập bảo mật của tài khoản";
+"ChooseCert"  = "Chọn chứng thư";
+"TokenType"  = "Chọn kiểu Token";
+"Loading"    = "Đang tải dữ liệu ...";
+"SoftPass"   = "Mật khẩu Soft Token";
+"HardPass"   = "Mật khẩu Hard Token";
+"LoginTokenFail" = "Sai mật khẩu.\nVui lòng nhập lại!";
+"LoginTokenNotInsert" = "Vui lòng nhập mật khẩu Token để đăng nhập hòm thư!";
+//
+"DestroyMail" = "Bạn muốn huỷ thư?";
+"EmailNotCorrect" = "Sai địa chỉ Email";
+"NotEnterEmail"   = "Vui lòng nhập đúng địa chỉ email người nhận";
+"Albums" = "Album ảnh";
+"SynchronizeFolder" = "Thư mục chia sẻ Itunes";
+"DbError" = "Lỗi cơ sở dữ liệu";
+"DbError_CertUser" = "Không có chứng thư của người nhận để mã hoá";
+"EncryptMailError_Send" = "Mail mã hoá chỉ gửi được cho một người!";
+"EncryptMailError_NoCert" = "Chưa có chứng thư của người nhận để mã hoá!";
+"CantSendEmail" = "Không gửi được thư. Vui lòng thử lại!";
+"SuccessSendEmail" = "Thư đã gửi!";
+"RemoveAtt" = "Gỡ đính kèm";
+"DownloadAtt" = "...";
+"DownloadEncryptFile" = "Tải tệp tin mã hoá...";
+"Decode" = "Đang giải mã...";
+"Download" = "Đang tải dữ liệu...";
+"CantDecode" = "Thư không thể giải mã bằng token đã cài đặt!";
+
+"ValidSign" = "Chữ ký trên email hợp lệ và được cấp bởi một nhà cung cấp chứng thực số tin tưởng!";
+"InvalidSign" = "Thư được ký bằng chữ ký không hợp lệ";
+"InvalidCert"  = "Chữ ký Không Hợp Lệ hoặc chứng thư dùng để ký được cấp bởi một nhà cung cấp chứng thực số Không Tin Tưởng!";
+"Revoked" = "Email được ký bằng chứng thư Không hợp lệ hoặc bị Thu hồi!";
+"Expired" = "Email được ký bằng chứng thư Hết hạn!";
+"InvalidEmail" = "Chữ ký hợp lệ nhưng địa chỉ người gửi Không trùng với email đăng ký chứng thư!";
+"UnknownErr" = "Lỗi phản hồi OCSP! Vui lòng kiểm tra lại kết nối mạng hoặc cài đặt token!";
+
+"Revoked_Cert" = "Chứng thư bị thu hồi!";
+"Expired_Cert" = "Chứng thư hết hạn!";
+"VerifyCert" = "Kiểm tra chứng thư...";
+
+"NoSubject"  = "(Thư không có chủ đề)";
+"KeyPair" = "Không tồn tại cặp khoá hoặc cặp khoá không hợp lệ!";
+"EmailProtect" = "Bảo vệ email";
+
+"MessageInfoSign" = "Thư được ký số";
+"MessageInfoEncrypt" = "Thư được mã hoá";
+
+"Monday1" = "Thứ 2";
+"Tuesday1" = "Thứ 3";
+"Wednesday1" = "Thứ 4";
+"Thursday1" = "Thứ 5";
+"Friday1" = "Thứ 6";
+"Saturday1" = "Thứ 7";
+"Sunday1" = "CN";
+"Day" = "ngày";
+
+"LoadMore" = "Đang tải thư...";
+"PullToReloadMail" = "Kéo để tải thêm thư";
+
+"Contain" = "Token không chứa chứng thư và cặp key tương ứng!" ;
+"Info" = "Thông tin chứng thư";
+"Info_ID" = "Mã chứng thư";
+"Info_Owner" = "Chủ thể";
+"Info_Email" = "Email đăng ký chứng thư";
+"Info_Company" = "Tổ chức cung cấp";
+"Info_Start" = "Ngày bắt đầu hiệu lực";
+"Info_Expire" = "Ngày hết hiệu lực";
+
+"Privacy_policy" = "Chính sách bảo mật";
+"SendSkipErr" = "Gửi thư mã hoá và bỏ qua địa chỉ lỗi";
+"ListErrMail" = "Các địa chỉ sau không đăng ký chứng thư để mã hoá:";
+"AllErrMail" = "Người nhận không đăng ký chứng thư để mã hoá!";
+"ConnectSMTP" = "Không thể kết nối đến máy chủ SMTP!";
+"Security_Settings" = "Cài đặt bảo mật";
+"MoreOptions" = "Tuỳ chọn";
+"Signature" = "Chữ ký người dùng";
+"Signature_default" = "Gửi từ ứng dụng iMail cho iOS";
+
+"Language" = "Ngôn ngữ";
+"Vietnamese" = "Tiếng Việt";
+"English" = "Tiếng Anh";
+"LangChangedNoti" = "Yêu cầu khởi động lại ứng dụng để thay đổi có hiệu lực";
+"MoreOptions" = "Tuỳ chọn";
+"RateApp" = "Đánh giá ứng dụng";
+"SendFeedback" = "Góp ý và báo lỗi";
+"VersionApp" = "Phiên bản";
+"About" = "Thông tin ứng dụng";
+
+"FileDownloadSuccess" = "Tải thành công!";
+"FileDownloadToPhotoSuccess" = "Lưu vào Cuộn Ramera thành công!";
+
+"CantVerifyTitle" = "Lỗi xác thực";
+"CantVerify" = "Không thể xác thực chữ ký trên email do dung lượng tệp đính kèm quá lớn!";
+"HUDCantVerify" = "Không thể xác thực chữ ký trên email";
+
+"DeleteSwipe" = "Xoá";
+"Unseen" = "Đánh dấu\nchưa đọc";
+"Seen" = "Đánh dấu\nđã đọc";
+"Flag" = "Cờ";
+"NoCertToken" = "Token không có chứng thư!";
+
+"More" = "Thêm";
+"Reply" = "Trả lời";
+"Forward" = "Chuyển tiếp";
+"Junk" = "Di chuyển vào Spam";
+"MoveTo" = "Di chuyển thư...";
+"MoveToFolders" = "Chọn một thư mục";
+"SelectCertDefault" = "Token có chứng thư trùng với thông tin email vừa đăng nhập. Bạn muốn sử dụng chứng thư này?";
+
+// File Manager
+"FileManager" = "Tệp tin tải về";
+"CreateDate" = "Ngày tạo:";
+"NoFile" = "Thư mục trống!";
+"DeleteFile" = "Bạn có muốn xoá file này?";
+"DeleteFileSuccess" = "Xoá file thành công!";
+"DeleteFileFailed" = "Xoá file thất bại!";
+"ErrorAttachment" = "Dung lượng đính kèm quá lớn!";
+
+"LoadingLoginPage" = "Tải trang đăng nhập...";
+
+"FailAndBeginLoginGmail" = "Đăng nhập bị từ chối. Vui lòng đăng nhập lại tài khoản vừa truy cập!";
+"FetchEmailError" = "Không thể tải email!";
+
+"PrivacyPolicy" = "Chính sách";
