@@ -144,6 +144,19 @@
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="More All" id="PtM-j8-E5U">
+                            <connections>
+                                <action selector="moreToolbarButtonClicked:" destination="12" id="u94-r9-RSa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="K0g-42-bGz"/>
+                        <barButtonItem title="Delete All" id="tGe-oj-uHk">
+                            <connections>
+                                <action selector="deleteToolbarButtonClicked:" destination="12" id="1vz-BD-cHY"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Hộp thư đến" id="36">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="UlV-jp-qaA">
                             <connections>
@@ -156,7 +169,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="deleteToolbarButton" destination="tGe-oj-uHk" id="JgU-Di-swU"/>
+                        <outlet property="moreToolBarButton" destination="PtM-j8-E5U" id="8Xn-BV-6bl"/>
                         <outlet property="searchBar" destination="LKC-0p-hW9" id="Emf-Ok-aEl"/>
                         <outlet property="searchBarDisplay" destination="MgO-9a-Ayo" id="Kju-2L-qa6"/>
                         <outlet property="searchDisplayController" destination="MgO-9a-Ayo" id="BYS-Lh-v5C"/>

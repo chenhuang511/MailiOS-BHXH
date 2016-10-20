@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A201w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="n7z-L4-twv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="n7z-L4-twv">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -81,6 +81,19 @@
                             <outlet property="delegate" destination="cEn-fs-xqU" id="c3U-3s-wh0"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" title="More All" id="FQj-bw-gWZ">
+                            <connections>
+                                <action selector="moreToolbarButtonClicked:" destination="cEn-fs-xqU" id="shG-fG-hxa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="w6c-iU-mXQ"/>
+                        <barButtonItem enabled="NO" title="Delete All" id="c20-Ez-f5w">
+                            <connections>
+                                <action selector="deleteToolbarButtonClicked:" destination="cEn-fs-xqU" id="3uF-gY-fjU"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Hộp thư đến" id="Z4P-wO-PDf">
                         <barButtonItem key="leftBarButtonItem" image="bt_drawer.png" style="plain" id="CKg-qh-dzg">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -88,6 +101,8 @@
                         <barButtonItem key="rightBarButtonItem" image="bt_compose.png" style="plain" id="wz1-YY-gYO"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteToolbarButton" destination="c20-Ez-f5w" id="wZ7-IN-gwu"/>
+                        <outlet property="moreToolBarButton" destination="FQj-bw-gWZ" id="2P5-g5-onM"/>
                         <outlet property="searchBar" destination="Jh6-ry-HYB" id="wJQ-i6-B1t"/>
                         <outlet property="searchBarDisplay" destination="6pX-gw-1Jw" id="sh9-q6-U8t"/>
                         <outlet property="searchDisplayController" destination="6pX-gw-1Jw" id="3tJ-ii-hiS"/>

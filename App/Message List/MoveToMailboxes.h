@@ -18,6 +18,10 @@
 - (void)passDestFolderName:(MoveToMailboxes *)controller
      didFinishEnteringItem:(NSString *)destFolder message:(NSIndexPath *)message;
 
+- (void)moveMultipleMail:(MoveToMailboxes *)controller
+   didFinishEnteringItem:(NSString *)destFolder
+                 message:(NSArray *)indexPaths;
+
 @end
 
 @interface MoveToMailboxes
@@ -29,6 +33,7 @@
 @property(nonatomic, weak) NSString *fromFolder;
 @property(nonatomic, weak) NSIndexPath *message;
 @property(nonatomic, weak) NSString *content;
+@property(nonatomic, strong) NSArray *indexPaths;
 @property(nonatomic, weak) id<MoveToMailboxesDelegate> delegate;
 
 + (UIImage *)changeColorImage:(UIImage *)image withColor:(UIColor *)color;

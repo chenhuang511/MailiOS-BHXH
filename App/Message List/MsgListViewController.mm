@@ -76,6 +76,10 @@ static BOOL flagUnSeen;
 - (void)viewDidLoad {
   [super viewDidLoad];
 
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    [self.moreToolBarButton setTitle:NSLocalizedString(@"More All", nil)];
+    [self.deleteToolbarButton setTitle:NSLocalizedString(@"Delete All", nil)];
+    
   filterResult = [[NSMutableArray alloc] init];
   if (!self.folder) {
     self.folder = @"INBOX";
@@ -115,16 +119,7 @@ static BOOL flagUnSeen;
   }];
   self.navigationController.navigationBar.translucent = NO;
 
-  UIButton *leftMenu = [UIButton buttonWithType:UIButtonTypeCustom];
-  [leftMenu setFrame:CGRectMake(0.0f, 0.0f, 30, 30)];
-  [leftMenu addTarget:self
-                action:@selector(showLeftView:)
-      forControlEvents:UIControlEventTouchUpInside];
-  UIImage *leftMenuImage = [UIImage imageNamed:@"bt_drawer.png"];
-  [leftMenu setImage:leftMenuImage forState:UIControlStateNormal];
-  UIBarButtonItem *leftMenuButtonBar =
-      [[UIBarButtonItem alloc] initWithCustomView:leftMenu];
-  self.navigationItem.leftBarButtonItem = leftMenuButtonBar;
+    [self setLeftMenuBarButton];
 
   UIButton *composeEmail = [UIButton buttonWithType:UIButtonTypeCustom];
   [composeEmail setFrame:CGRectMake(0.0f, 0.0f, 30, 30)];
@@ -266,6 +261,35 @@ static BOOL flagUnSeen;
   [label setFont:[UIFont systemFontOfSize:15]];
   [label setAlpha:0.0];
   [self.navigationController.navigationBar addSubview:label];
+}
+
+- (void)setLeftMenuBarButton {
+    UIButton *leftMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftMenu setFrame:CGRectMake(0.0f, 0.0f, 30, 30)];
+    [leftMenu addTarget:self
+                 action:@selector(showLeftView:)
+       forControlEvents:UIControlEventTouchUpInside];
+    UIImage *leftMenuImage = [UIImage imageNamed:@"bt_drawer.png"];
+    [leftMenu setImage:leftMenuImage forState:UIControlStateNormal];
+    UIBarButtonItem *leftMenuButtonBar =
+    [[UIBarButtonItem alloc] initWithCustomView:leftMenu];
+    self.navigationItem.leftBarButtonItem = leftMenuButtonBar;
+}
+
+- (void)setLeftCancelBarButton {
+    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelButton setFrame:CGRectMake(0.0f, 0.0f, 60, 30)];
+    [cancelButton addTarget:self
+                 action:@selector(cancelBarButtonClicked:)
+       forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+    UIBarButtonItem *leftMenuButtonBar =
+    [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+    self.navigationItem.leftBarButtonItem = leftMenuButtonBar;
+}
+
+- (void)cancelBarButtonClicked:(id) sender {
+    [self showEdittingMode:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -980,6 +1004,66 @@ static BOOL flagUnSeen;
       });
 }
 
+- (void)deleteFromTrash:(MCOIndexSet *)mcoIndexSet indexSet:(NSIndexSet *)indexSet indexPaths:(NSArray *)indexPaths selectedMessages:(NSArray *)selectedMessages {
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    MCOIMAPOperation *op = [[[AuthManager sharedManager] getImapSession]
+                            storeFlagsOperationWithFolder:self.folder
+                            uids:mcoIndexSet
+                            kind:MCOIMAPStoreFlagsRequestKindSet
+                            flags:MCOMessageFlagDeleted];
+    [op start:^(NSError *error) {
+        if (!error) {
+            NSLog(@"Updated flags!");
+        } else {
+            NSLog(@"Error updating flags:%@", error);
+            if (error.code == 5) {
+                [CheckValidSession
+                 checkValidSession:[[AuthManager sharedManager] getImapSession]];
+            }
+        }
+        MCOIMAPOperation *deleteOp = [[[AuthManager sharedManager] getImapSession]
+                                      expungeOperation:self.folder];
+        [deleteOp start:^(NSError *error) {
+            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            
+            if (error) {
+                NSLog(@"Error expunging folder:%@", error);
+                if (error.code == 5) {
+                    [CheckValidSession
+                     checkValidSession:[[AuthManager sharedManager] getImapSession]];
+                }
+            } else {
+                NSLog(@"Successfully expunged folder");
+            }
+        }];
+    }];
+    
+    dispatch_after(
+                   dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC),
+                   dispatch_get_main_queue(), ^{
+                       // update UI
+                       NSMutableArray *msg = [NSMutableArray arrayWithArray:self.messages];
+                       [msg removeObjectsAtIndexes:indexSet];
+                       self.messages = [NSArray arrayWithArray:msg];
+                       [self.tableView
+                        deleteRowsAtIndexPaths:indexPaths
+                        withRowAnimation:UITableViewRowAnimationLeft];
+                       
+                       // delete & update NSUserDefault and Cache
+                       [self deleteMailData:selectedMessages];
+                       
+                       [self.cache setValue:msg forKey:self.folder];
+                       [self saveCustomObject:msg key:self.folder];
+                       
+//                       if (IDIOM == IPAD && index != 0) {
+//                           [self selectRowAtIndexPath:indexpath.row];
+//                       }
+                   });
+}
+
 - (void)removeMessage:(uint64_t)msgUID {
   NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
   NSPredicate *predicate =
@@ -1386,6 +1470,8 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
                                           animated:YES
                                         completion:nil];
                      }];
+                   } else if (actionIndex == 4) {
+                       [self showEdittingMode:YES];
                    }
 
                  }];
@@ -1401,127 +1487,127 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
                                         alpha:1.0]
                 padding:padding
                callback:^BOOL(MGSwipeTableCell *sender) {
-                 [UIApplication sharedApplication]
-                     .networkActivityIndicatorVisible = YES;
-
-                 /* delete MCO operation */
-                 if ([[MenuViewController sharedFolderName]
-                         isEqualToString:@"Trash"]) {
-
-                   /* From trash */
-                   [self deleteFromTrash:msgUID rowIndexPath:cellIndexPath];
-
-                 } else {
-                   /* From other mailboxes */
-
-                   // delete MCO Operation
-                   NSString *trash = [[ListAllFolders shareFolderNames]
-                       objectForKey:@"Trash"];
-                   MCOIMAPCopyMessagesOperation *opC =
+                   [UIApplication sharedApplication]
+                   .networkActivityIndicatorVisible = YES;
+                   
+                   /* delete MCO operation */
+                   if ([[MenuViewController sharedFolderName]
+                        isEqualToString:@"Trash"]) {
+                       
+                       /* From trash */
+                       [self deleteFromTrash:msgUID rowIndexPath:cellIndexPath];
+                       
+                   } else {
+                       /* From other mailboxes */
+                       
+                       // delete MCO Operation
+                       NSString *trash = [[ListAllFolders shareFolderNames]
+                                          objectForKey:@"Trash"];
+                       MCOIMAPCopyMessagesOperation *opC =
                        [[[AuthManager sharedManager] getImapSession]
-                           copyMessagesOperationWithFolder:
-                               self.folder uids:[MCOIndexSet
-                                                    indexSetWithIndex:msgUID]
-                                                destFolder:trash];
-                   [opC start:^(NSError *error, NSDictionary *uidMapping) {
-                     NSLog(@"Yahoo & Outlook... Trash with UID mapping %@",
-                           uidMapping);
-                     if (error) {
-                       NSLog(@"error delete: %@", error.description);
-                       if (error.code == 5) {
-                         [CheckValidSession
-                             checkValidSession:
-                                 [[AuthManager sharedManager] getImapSession]];
-                       }
-                     }
-
-                   }];
-                   MCOIMAPOperation *op = [
-                       [[AuthManager sharedManager] getImapSession]
-                       storeFlagsOperationWithFolder:
-                           self.folder uids:[MCOIndexSet
-                                                indexSetWithIndex:msgUID]
-                                                kind:
-                                                    MCOIMAPStoreFlagsRequestKindSet
-                                               flags:MCOMessageFlagDeleted];
-                   [op start:^(NSError *error) {
-                     if (error) {
-                       NSLog(@"Error updating flags:%@", error);
-                       if (error.code == 5) {
-                         [CheckValidSession
-                             checkValidSession:
-                                 [[AuthManager sharedManager] getImapSession]];
-                       }
-
-                       [UIApplication sharedApplication]
-                           .networkActivityIndicatorVisible = NO;
-
-                       return;
-                     }
-                     MCOIMAPOperation *deleteOp =
-                         [[[AuthManager sharedManager] getImapSession]
-                             expungeOperation:self.folder];
-                     [deleteOp start:^(NSError *error) {
-                       [UIApplication sharedApplication]
-                           .networkActivityIndicatorVisible = NO;
-                       if (!error) {
-                         if (IDIOM == IPAD && row != 0) {
-                           [self selectRowAtIndexPath:row];
-                         }
-                         NSLog(@"Email has been deleted");
-                       } else {
-                         NSLog(@"Error expunging folder:%@", error);
-                         if (error.code == 5) {
-                           [CheckValidSession
-                               checkValidSession:
-                                   [[AuthManager
-                                           sharedManager] getImapSession]];
-                         }
-                       }
-                     }];
-                   }];
-
-                   // update UI
-                   dispatch_after(
-                       dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC),
-                       dispatch_get_main_queue(), ^{
-                         NSMutableArray *msg =
-                             [NSMutableArray arrayWithArray:self.messages];
-                         if (row < msg.count) {
-                           if (isSearching) {
-                             [msg removeObjectAtIndex:
-                                      [filterResult[row] integerValue]];
-                             [filterResult removeObjectAtIndex:row];
-                           } else {
-                             [msg removeObjectAtIndex:row];
+                        copyMessagesOperationWithFolder:
+                        self.folder uids:[MCOIndexSet
+                                          indexSetWithIndex:msgUID]
+                        destFolder:trash];
+                       [opC start:^(NSError *error, NSDictionary *uidMapping) {
+                           NSLog(@"Yahoo & Outlook... Trash with UID mapping %@",
+                                 uidMapping);
+                           if (error) {
+                               NSLog(@"error delete: %@", error.description);
+                               if (error.code == 5) {
+                                   [CheckValidSession
+                                    checkValidSession:
+                                    [[AuthManager sharedManager] getImapSession]];
+                               }
                            }
-                         }
-                         self.messages = [NSArray arrayWithArray:msg];
-                         if (!isSearching) {
-                           [self.tableView
-                               deleteRowsAtIndexPaths:
-                                   [NSArray arrayWithObject:cellIndexPath]
-                                     withRowAnimation:
-                                         UITableViewRowAnimationLeft];
-                         } else {
-                           [self.searchDisplayController.searchResultsTableView
-                               deleteRowsAtIndexPaths:
-                                   [NSArray arrayWithObject:cellIndexPath]
-                                     withRowAnimation:
-                                         UITableViewRowAnimationLeft];
-                         }
-                         // delete & update NSUserDefault and Cache
-                         NSString *s_uid = [NSString
-                             stringWithFormat:@"%d", (NSUInteger)msgUID];
-                         NSString *key =
-                             [NSString stringWithFormat:@"%@%@%@", username,
-                                                        _folder, s_uid];
-                         [[NSUserDefaults standardUserDefaults]
-                             removeObjectForKey:key];
-                         [self.cache setValue:msg forKey:self.folder];
-                         [self saveCustomObject:msg key:self.folder];
-                       });
-                 }
+                           
+                       }];
+                       MCOIMAPOperation *op = [
+                                               [[AuthManager sharedManager] getImapSession]
+                                               storeFlagsOperationWithFolder:
+                                               self.folder uids:[MCOIndexSet
+                                                                 indexSetWithIndex:msgUID]
+                                               kind:
+                                               MCOIMAPStoreFlagsRequestKindSet
+                                               flags:MCOMessageFlagDeleted];
+                       [op start:^(NSError *error) {
+                           if (error) {
+                               NSLog(@"Error updating flags:%@", error);
+                               if (error.code == 5) {
+                                   [CheckValidSession
+                                    checkValidSession:
+                                    [[AuthManager sharedManager] getImapSession]];
+                               }
+                               
+                               [UIApplication sharedApplication]
+                               .networkActivityIndicatorVisible = NO;
+                               
+                               return;
+                           }
+                           MCOIMAPOperation *deleteOp =
+                           [[[AuthManager sharedManager] getImapSession]
+                            expungeOperation:self.folder];
+                           [deleteOp start:^(NSError *error) {
+                               [UIApplication sharedApplication]
+                               .networkActivityIndicatorVisible = NO;
+                               if (!error) {
+                                   if (IDIOM == IPAD && row != 0) {
+                                       [self selectRowAtIndexPath:row];
+                                   }
+                                   NSLog(@"Email has been deleted");
+                               } else {
+                                   NSLog(@"Error expunging folder:%@", error);
+                                   if (error.code == 5) {
+                                       [CheckValidSession
+                                        checkValidSession:
+                                        [[AuthManager
+                                          sharedManager] getImapSession]];
+                                   }
+                               }
+                           }];
+                       }];
+                       
+                       // update UI
+                       dispatch_after(
+                                      dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC),
+                                      dispatch_get_main_queue(), ^{
+                                          NSMutableArray *msg =
+                                          [NSMutableArray arrayWithArray:self.messages];
+                                          if (row < msg.count) {
+                                              if (isSearching) {
+                                                  [msg removeObjectAtIndex:
+                                                   [filterResult[row] integerValue]];
+                                                  [filterResult removeObjectAtIndex:row];
+                                              } else {
+                                                  [msg removeObjectAtIndex:row];
+                                              }
+                                          }
+                                          self.messages = [NSArray arrayWithArray:msg];
+                                          if (!isSearching) {
+                                              [self.tableView
+                                               deleteRowsAtIndexPaths:
+                                               [NSArray arrayWithObject:cellIndexPath]
+                                               withRowAnimation:
+                                               UITableViewRowAnimationLeft];
+                                          } else {
+                                              [self.searchDisplayController.searchResultsTableView
+                                               deleteRowsAtIndexPaths:
+                                               [NSArray arrayWithObject:cellIndexPath]
+                                               withRowAnimation:
+                                               UITableViewRowAnimationLeft];
+                                          }
+                                          // delete & update NSUserDefault and Cache
+                                          NSString *s_uid = [NSString
+                                                             stringWithFormat:@"%d", (NSUInteger)msgUID];
+                                          NSString *key =
+                                          [NSString stringWithFormat:@"%@%@%@", username,
+                                           _folder, s_uid];
+                                          [[NSUserDefaults standardUserDefaults]
+                                           removeObjectForKey:key];
+                                          [self.cache setValue:msg forKey:self.folder];
+                                          [self saveCustomObject:msg key:self.folder];
+                                      });
+                   }
                  return YES;
                }];
 
@@ -1643,6 +1729,125 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
   }];
 }
 
+- (void)moveMessageWithIndexPaths:(NSArray *)indexPaths toFolder:(NSString *)dest {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
+    NSMutableArray *messageArray = [[NSMutableArray alloc] init];
+    MCOIndexSet *mcoIndexSet = [[MCOIndexSet alloc] init];
+    
+    MCOIMAPMessage *message;
+    
+    for (NSIndexPath *indexPath in indexPaths) {
+        [indexSet addIndex:indexPath.row];
+        if (!isSearching) {
+            message = self.messages[indexPath.row];
+        } else {
+            message = self.messages[[filterResult[indexPath.row] integerValue]];
+        }
+        [messageArray addObject:message];
+        [mcoIndexSet addIndex:message.uid];
+    }
+    
+    // update UI
+    NSMutableArray *msg = [NSMutableArray arrayWithArray:self.messages];
+    [msg removeObjectsAtIndexes:indexSet];
+    self.messages = [NSArray arrayWithArray:msg];
+    
+    if (!isSearching) {
+        [self.tableView deleteRowsAtIndexPaths:indexPaths
+                              withRowAnimation:UITableViewRowAnimationLeft];
+    } else {
+        [filterResult removeObjectsAtIndexes:indexSet];
+        [self.searchBarDisplay.searchResultsTableView deleteRowsAtIndexPaths:indexPaths
+                                                            withRowAnimation:UITableViewRowAnimationLeft];
+    }
+    
+    // delete & update NSUserDefault and Cache
+    [self.cache setValue:msg forKey:self.folder];
+    [self saveCustomObject:msg key:self.folder];
+    
+    MCOIMAPCopyMessagesOperation *op =
+    [[[AuthManager sharedManager] getImapSession]
+     copyMessagesOperationWithFolder:self.folder
+     uids:mcoIndexSet
+     destFolder:dest];
+    [op start:^(NSError *error, NSDictionary *uidMapping) {
+        
+        if (!error) {
+            MCOMessageFlag newflags = [message flags];
+            newflags |= MCOMessageFlagDeleted;
+            
+            MCOIMAPOperation *changeFlags =
+            [[[AuthManager sharedManager] getImapSession]
+             storeFlagsOperationWithFolder:self.folder
+             uids:mcoIndexSet
+             kind:MCOIMAPStoreFlagsRequestKindSet
+             flags:newflags];
+            
+            [changeFlags start:^(NSError *error) {
+                if (!error) {
+                    NSLog(@"Flag has been changed");
+                    MCOIMAPOperation *expungeOp =
+                    [[[AuthManager sharedManager] getImapSession]
+                     expungeOperation:self.folder];
+                    [expungeOp start:^(NSError *error) {
+                        [UIApplication sharedApplication].networkActivityIndicatorVisible =
+                        NO;
+                        if (error) {
+                            NSLog(@"Expunge Failed, %@", error.description);
+                            if (error.code == 5) {
+                                [CheckValidSession
+                                 checkValidSession:
+                                 [[AuthManager sharedManager] getImapSession]];
+                            }
+                        } else {
+                            NSLog(@"Folder Expunged");
+                            /*
+                             // update UI
+                             NSMutableArray *msg =
+                             [NSMutableArray arrayWithArray:self.messages];
+                             [msg removeObjectAtIndex:index.row];
+                             self.messages = [NSArray arrayWithArray:msg];
+                             
+                             if (!isSearching) {
+                             [self.tableView
+                             deleteRowsAtIndexPaths:[NSArray arrayWithObject:index]
+                             withRowAnimation:UITableViewRowAnimationLeft];
+                             } else {
+                             [filterResult removeObjectAtIndex:index.row];
+                             [self.searchDisplayController.searchResultsTableView
+                             deleteRowsAtIndexPaths:[NSArray arrayWithObject:index]
+                             withRowAnimation:UITableViewRowAnimationLeft];
+                             }
+                             
+                             // delete & update NSUserDefault and Cache
+                             [self.cache setValue:msg forKey:self.folder];
+                             [self saveCustomObject:msg key:self.folder];
+                             */
+                        }
+                    }];
+                } else {
+                    NSLog(@"Error with flag changing");
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible =
+                    NO;
+                    if (error.code == 5) {
+                        [CheckValidSession
+                         checkValidSession:[[AuthManager sharedManager] getImapSession]];
+                    }
+                }
+            }];
+        } else {
+            NSLog(@"Message can not Copy");
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            if (error.code == 5) {
+                [CheckValidSession
+                 checkValidSession:[[AuthManager sharedManager] getImapSession]];
+            }
+        }
+    }];
+}
+
 - (void)showMailActions:(MailActionCallback)callback {
   NSLog(@"CURRENT FOLDER %@", self.folder);
   NSLog(@"CURRENT TITLE FOLDER %@", self.title);
@@ -1667,7 +1872,8 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
              otherButtonTitles:NSLocalizedString(@"Reply", nil),
                                NSLocalizedString(@"Forward", nil),
                                NSLocalizedString(@"Junk", nil),
-                               NSLocalizedString(@"MoveTo", nil), nil];
+                               NSLocalizedString(@"MoveTo", nil),
+                               NSLocalizedString(@"Edit", nil), nil];
   }
   [morePopup showInView:self.view];
 }
@@ -1854,14 +2060,32 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
 
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.isEditing) {
+        if (!self.moreToolBarButton.isEnabled) {
+            self.moreToolBarButton.enabled = YES;
+        }
+        if (!self.deleteToolbarButton.isEnabled) {
+            self.deleteToolbarButton.enabled = YES;
+        }
+    } else {
+        [self selectRowAtIndexPath:indexPath.row];
+        
+        if (IDIOM == IPHONE && isSearching) {
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        } else {
+            [self.view endEditing:YES];
+        }
+    }
+}
 
-  [self selectRowAtIndexPath:indexPath.row];
-
-  if (IDIOM == IPHONE && isSearching) {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-  } else {
-    [self.view endEditing:YES];
-  }
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.isEditing) {
+        NSArray *selectedRows = tableView.indexPathsForSelectedRows;
+        if (selectedRows.count == 0) {
+            self.moreToolBarButton.enabled = NO;
+            self.deleteToolbarButton.enabled = NO;
+        }
+    }
 }
 
 - (void)selectRowAtIndexPath:(NSInteger)index {
@@ -2340,6 +2564,14 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
   }
 }
 
+- (void)moveMultipleMail:(MoveToMailboxes *)controller
+     didFinishEnteringItem:(NSString *)destFolder
+                   message:(NSArray *)indexPaths {
+    if (indexPaths != nil && indexPaths.count > 0 && destFolder) {
+        [self moveMessageWithIndexPaths:indexPaths toFolder:destFolder];
+    }
+}
+
 - (void)didRotateFromInterfaceOrientation:
     (UIInterfaceOrientation)fromInterfaceOrientation {
   [label setFrame:CGRectMake(0, self.navigationController.navigationBar.frame
@@ -2576,6 +2808,224 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
   } else {
     return NO;
   }
+}
+
+- (void)showEdittingMode:(BOOL)editting {
+    if (editting) {
+        [self setLeftCancelBarButton];
+    } else {
+        [self setLeftMenuBarButton];
+    }
+    [self.tableView setEditing:editting animated:YES];
+    [self.navigationController setToolbarHidden:!editting animated:YES];
+}
+
+- (IBAction)deleteToolbarButtonClicked:(id)sender {
+    NSArray *selectedIndexPaths = self.tableView.indexPathsForSelectedRows;
+    if (selectedIndexPaths != nil && selectedIndexPaths.count > 0) {
+        [self deleteMessageAtIndexPaths:selectedIndexPaths];
+    }
+}
+
+- (IBAction)moreToolbarButtonClicked:(id)sender {
+    [self showMoreActions:^(BOOL cancelled, BOOL deleted, NSInteger actionIndex) {
+        if (cancelled) {
+            return;
+        } else if (actionIndex == 0) {
+            NSString *spamFolder = [[ListAllFolders shareFolderNames]
+                                    objectForKey:@"Spam"];
+            NSArray *selectedIndexPaths = self.tableView.indexPathsForSelectedRows;
+            if (selectedIndexPaths != nil && selectedIndexPaths.count > 0) {
+                [self moveMessageWithIndexPaths:selectedIndexPaths toFolder:spamFolder];
+            }
+        } else if (actionIndex == 1) {
+            NSLog(@"Move to ...");
+            NSArray *selectedIndexPaths = self.tableView.indexPathsForSelectedRows;
+            
+            if (selectedIndexPaths != nil && selectedIndexPaths.count > 0) {
+            
+                MCOIMAPMessage *message;
+                if (!isSearching) {
+                    message = self.messages[0];
+                } else {
+                    message = self.messages[[filterResult[0] integerValue]];
+                }
+                
+                MoveToMailboxes *move = [[MoveToMailboxes alloc] init];
+                move.delegate = self;
+                move.fromFolder = self.title;
+                move.indexPaths = selectedIndexPaths;
+                NSString *from = message.header.from.displayName
+                ? message.header.from.displayName
+                : message.header.from.mailbox;
+                NSString *subject =
+                message.header.subject
+                ? message.header.subject
+                : NSLocalizedString(@"NoSubject", nil);
+                move.title = NSLocalizedString(@"MoveToFolders", nil);
+                move.content =
+                [NSString stringWithFormat:@"%@\n%@", from, subject];
+                FixedNavigationController *nav =
+                [[FixedNavigationController alloc]
+                 initWithRootViewController:move];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [self presentViewController:nav
+                                       animated:YES
+                                     completion:nil];
+                }];
+            }
+        }
+        [self showEdittingMode:NO];
+    }];
+}
+
+- (void)showMoreActions:(MailActionCallback)callback {
+    actionCallback = callback;
+    UIActionSheet *morePopup = [[UIActionSheet alloc]
+                                initWithTitle:nil
+                                delegate:self
+                                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                destructiveButtonTitle:nil
+                                otherButtonTitles:NSLocalizedString(@"Junk", nil),
+                                NSLocalizedString(@"MoveTo", nil), nil];
+    [morePopup showInView:self.view];
+}
+
+- (void)deleteMessageAtIndexPaths:(NSArray *)indexPaths {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
+    NSMutableArray *selectedMessages = [[NSMutableArray alloc] init];
+    MCOIndexSet *mcoIndexSet = [[MCOIndexSet alloc] init];
+    
+    MCOIMAPMessage *message;
+    
+    for (NSIndexPath *indexPath in indexPaths) {
+        [indexSet addIndex:indexPath.row];
+        if (!isSearching) {
+            message = self.messages[indexPath.row];
+        } else {
+            message = self.messages[[filterResult[indexPath.row] integerValue]];
+        }
+        [selectedMessages addObject:message];
+        [mcoIndexSet addIndex:message.uid];
+    }
+    
+    /* delete MCO operation */
+    if ([[MenuViewController sharedFolderName]
+         isEqualToString:@"Trash"]) {
+        
+        /* From trash */
+//        [self deleteFromTrash:msgUID rowIndexPath:cellIndexPath];
+        [self deleteFromTrash:mcoIndexSet indexSet:indexSet indexPaths:indexPaths selectedMessages:selectedMessages];
+        
+    } else {
+        /* From other mailboxes */
+        
+        // delete MCO Operation
+        NSString *trash = [[ListAllFolders shareFolderNames]
+                           objectForKey:@"Trash"];
+        MCOIMAPCopyMessagesOperation *opC =
+        [[[AuthManager sharedManager] getImapSession]
+         copyMessagesOperationWithFolder:
+         self.folder uids:mcoIndexSet
+         destFolder:trash];
+        [opC start:^(NSError *error, NSDictionary *uidMapping) {
+            NSLog(@"Yahoo & Outlook... Trash with UID mapping %@",
+                  uidMapping);
+            if (error) {
+                NSLog(@"error delete: %@", error.description);
+                if (error.code == 5) {
+                    [CheckValidSession
+                     checkValidSession:
+                     [[AuthManager sharedManager] getImapSession]];
+                }
+            }
+            
+        }];
+        MCOIMAPOperation *op = [
+                                [[AuthManager sharedManager] getImapSession]
+                                storeFlagsOperationWithFolder:
+                                self.folder uids:mcoIndexSet
+                                kind:
+                                MCOIMAPStoreFlagsRequestKindSet
+                                flags:MCOMessageFlagDeleted];
+        [op start:^(NSError *error) {
+            if (error) {
+                NSLog(@"Error updating flags:%@", error);
+                if (error.code == 5) {
+                    [CheckValidSession
+                     checkValidSession:
+                     [[AuthManager sharedManager] getImapSession]];
+                }
+                
+                [UIApplication sharedApplication]
+                .networkActivityIndicatorVisible = NO;
+                
+                return;
+            }
+            MCOIMAPOperation *deleteOp =
+            [[[AuthManager sharedManager] getImapSession]
+             expungeOperation:self.folder];
+            [deleteOp start:^(NSError *error) {
+                [UIApplication sharedApplication]
+                .networkActivityIndicatorVisible = NO;
+                if (!error) {
+//                    if (IDIOM == IPAD && row != 0) {
+//                        [self selectRowAtIndexPath:row];
+//                    }
+                    NSLog(@"Email has been deleted");
+                } else {
+                    NSLog(@"Error expunging folder:%@", error);
+                    if (error.code == 5) {
+                        [CheckValidSession
+                         checkValidSession:
+                         [[AuthManager
+                           sharedManager] getImapSession]];
+                    }
+                }
+            }];
+        }];
+        
+        // update UI
+        dispatch_after(
+                       dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC),
+                       dispatch_get_main_queue(), ^{
+                           NSMutableArray *msg =
+                           [NSMutableArray arrayWithArray:self.messages];
+                           if (!isSearching) {
+                               [msg removeObjectsAtIndexes:indexSet];
+                               self.messages = [NSArray arrayWithArray:msg];
+                               [self.tableView
+                                deleteRowsAtIndexPaths:indexPaths
+                                withRowAnimation:
+                                UITableViewRowAnimationLeft];
+                           } else {
+                               [filterResult removeObjectsAtIndexes:indexSet];
+                               [self.searchBarDisplay.searchResultsTableView
+                                deleteRowsAtIndexPaths:indexPaths
+                                withRowAnimation:
+                                UITableViewRowAnimationLeft];
+                           }
+        
+                           // delete & update NSUserDefault and Cache
+                           [self deleteMailData:[NSArray arrayWithArray:selectedMessages]];
+                           [self.cache setValue:msg forKey:self.folder];
+                           [self saveCustomObject:msg key:self.folder];
+                       });
+    }
+}
+
+- (void)deleteMailData:(NSArray *)selectedMessages {
+    for (MCOIMAPMessage *message in selectedMessages) {
+        NSString *s_uid = [NSString
+                           stringWithFormat:@"%lu", (unsigned long)message.uid];
+        NSString *key =
+        [NSString stringWithFormat:@"%@%@%@", username,
+         _folder, s_uid];
+        [[NSUserDefaults standardUserDefaults]
+         removeObjectForKey:key];
+    }
 }
 
 @end

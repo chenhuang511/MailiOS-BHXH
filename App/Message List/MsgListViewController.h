@@ -68,6 +68,8 @@ typedef void (^MailActionCallback)(BOOL cancelled, BOOL deleted,
 @property(weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property(strong) NSString *folder;
 @property(strong) NSString *folderParent;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *moreToolBarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteToolbarButton;
 
 @property(weak, nonatomic) IBOutlet UIBarButtonItem *leftMenu;
 
@@ -75,7 +77,9 @@ typedef void (^MailActionCallback)(BOOL cancelled, BOOL deleted,
 - (IBAction)composeEmail:(id)sender;
 - (void)listCertHard;
 - (void)loadFolderIntoCache:(NSString *)imapPath;
+- (IBAction)deleteToolbarButtonClicked:(id)sender;
 
+- (IBAction)moreToolbarButtonClicked:(id)sender;
 + (BOOL)shareFlagSeen;
 + (MCOIMAPMessage *)shareOrgMsg;
 + (void)setUnlockMail:(BOOL)status;

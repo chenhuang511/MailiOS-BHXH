@@ -184,9 +184,19 @@
   } else if ([fileName isEqualToString:NSLocalizedString(@"Trash", nil)]) {
     folderName = [listFolderName objectForKey:@"Trash"];
   }
-  [self.delegate passDestFolderName:self
-              didFinishEnteringItem:folderName
-                            message:message];
+    if (self.indexPaths != nil && self.indexPaths.count > 0) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(moveMultipleMail:didFinishEnteringItem:message:)]) {
+            [self.delegate moveMultipleMail:self didFinishEnteringItem:folderName message:self.indexPaths];
+        }
+    } else {
+        if (message) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(passDestFolderName:didFinishEnteringItem:message:)]) {
+                [self.delegate passDestFolderName:self
+                            didFinishEnteringItem:folderName
+                                          message:message];
+            }
+        }
+    }
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 

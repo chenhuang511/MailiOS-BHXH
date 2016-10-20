@@ -4955,7 +4955,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vn.bhxhmail;
 				PRODUCT_NAME = "BHXH Mail_.temp_caseinsensitive_rename";
 				PROVISIONING_PROFILE = "e1ef2af3-4ca0-40b4-b316-a19cf3da03fc";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "566d87a0-5795-4c73-ba5e-ed620964d79c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
 				VALID_ARCHS = "armv7 armv7s arm64";
