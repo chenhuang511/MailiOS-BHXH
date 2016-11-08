@@ -600,7 +600,7 @@ static BOOL flagUnSeen;
   if (accIndex != nil) {
     NSString *usrname = [listAccount objectAtIndex:([accIndex intValue] + 1)];
     if (usrname) {
-      key = [key stringByAppendingString:selectedAccName];
+      key = [key stringByAppendingString:usrname];
       NSData *encodedObject =
           [NSKeyedArchiver archivedDataWithRootObject:object];
       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

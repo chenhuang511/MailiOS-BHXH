@@ -760,7 +760,7 @@
 		BCDC31EE17F04B960033998E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Andrey Yastrebov";
 			};
 			buildConfigurationList = BCDC31F117F04B960033998E /* Build configuration list for PBXProject "GContacts" */;
@@ -887,6 +887,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
