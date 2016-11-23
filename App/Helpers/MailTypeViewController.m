@@ -217,34 +217,34 @@ UIView *render;
   }
 
   UIImageView *i = [[UIImageView alloc] init];
-  switch (indexPath.row) {
-  case 0:
-    i.image = [UIImage imageNamed:@"gmail.png"];
-    [i setFrame:CGRectMake((self.view.bounds.size.width - 105) / 2, 6, 105,
-                           40)];
-    [cell addSubview:i];
-    break;
-  case 1:
-    i.image = [UIImage imageNamed:@"yahoo_mail.png"];
-    [i setFrame:CGRectMake((self.view.bounds.size.width - 105) / 2, 6, 105,
-                           40)];
-    [cell addSubview:i];
-    break;
-  case 2:
-    i.image = [UIImage imageNamed:@"outlook_mail.png"];
-    [i setFrame:CGRectMake((self.view.bounds.size.width - 105) / 2, 6, 105,
-                           40)];
-    [cell addSubview:i];
-    break;
-  case 3:
+//  switch (indexPath.row) {
+//  case 0:
+//    i.image = [UIImage imageNamed:@"gmail.png"];
+//    [i setFrame:CGRectMake((self.view.bounds.size.width - 105) / 2, 6, 105,
+//                           40)];
+//    [cell addSubview:i];
+//    break;
+//  case 1:
+//    i.image = [UIImage imageNamed:@"yahoo_mail.png"];
+//    [i setFrame:CGRectMake((self.view.bounds.size.width - 105) / 2, 6, 105,
+//                           40)];
+//    [cell addSubview:i];
+//    break;
+//  case 2:
+//    i.image = [UIImage imageNamed:@"outlook_mail.png"];
+//    [i setFrame:CGRectMake((self.view.bounds.size.width - 105) / 2, 6, 105,
+//                           40)];
+//    [cell addSubview:i];
+//    break;
+//  case 3:
     i.image = [UIImage imageNamed:@"cauhinhthucong.png"];
     [i setFrame:CGRectMake((self.view.bounds.size.width - 143) / 2, 0, 143,
                            50)];
     [cell addSubview:i];
-    break;
-  default:
-    break;
-  };
+//    break;
+//  default:
+//    break;
+//  };
   return cell;
 }
 
@@ -272,7 +272,8 @@ UIView *render;
 
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
-  return 4;
+//  return 4;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tabelView
@@ -285,34 +286,41 @@ UIView *render;
 
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-  if (indexPath.section == 0) {
-    if (indexPath.row != 0) {
-      LoginFormController *login = [[LoginFormController alloc] init];
-      [self.navigationController pushViewController:login animated:YES];
-
-      switch (indexPath.row) {
-      case 1:
-        [[NSUserDefaults standardUserDefaults] setObject:@"3"
-                                                  forKey:@"mailtype"];
-        // yahoo mail
-        break;
-      case 2:
-        [[NSUserDefaults standardUserDefaults] setObject:@"4"
-                                                  forKey:@"mailtype"];
-        // outlook mail
-        break;
-      default:
-        [[NSUserDefaults standardUserDefaults] setObject:@"0"
-                                                  forKey:@"mailtype"];
-        // other
-        break;
-      }
-    } else {
-
-      [[Oauth2NewAccountLogin
-        shareOauth2NewAccountLogin] oauth2NewAccountLogin:YES];
-    }
-  }
+//  if (indexPath.section == 0) {
+//    if (indexPath.row != 0) {
+//      LoginFormController *login = [[LoginFormController alloc] init];
+//      [self.navigationController pushViewController:login animated:YES];
+//
+//      switch (indexPath.row) {
+//      case 1:
+//        [[NSUserDefaults standardUserDefaults] setObject:@"3"
+//                                                  forKey:@"mailtype"];
+//        // yahoo mail
+//        break;
+//      case 2:
+//        [[NSUserDefaults standardUserDefaults] setObject:@"4"
+//                                                  forKey:@"mailtype"];
+//        // outlook mail
+//        break;
+//      default:
+//        [[NSUserDefaults standardUserDefaults] setObject:@"0"
+//                                                  forKey:@"mailtype"];
+//        // other
+//        break;
+//      }
+//    } else {
+//
+//      [[Oauth2NewAccountLogin
+//        shareOauth2NewAccountLogin] oauth2NewAccountLogin:YES];
+//    }
+//  }
+    
+    // remove other mail account type
+    LoginFormController *login = [[LoginFormController alloc] init];
+    [self.navigationController pushViewController:login animated:YES];
+    [[NSUserDefaults standardUserDefaults] setObject:@"0"
+                                              forKey:@"mailtype"];
+    // other
 }
 
 @end
