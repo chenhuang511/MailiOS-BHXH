@@ -664,7 +664,7 @@ else if (indexPath.section == 1) {
       if (IDIOM == IPAD) {
         ComposerViewController *vc =
             [[ComposerViewController alloc] initWithTo:@[
-              @"hoangtd.ptd@gmail.com"
+              @"tuanpt@hanoi.vssic.gov.vn"
             ] CC:@[] BCC:@[] subject:header message:@""
                                            attachments:@[]
                                     delayedAttachments:@[]];
@@ -675,7 +675,7 @@ else if (indexPath.section == 1) {
       } else {
         Composer_iPhoneViewController *vc =
             [[Composer_iPhoneViewController alloc] initWithTo:@[
-              @"hoangtd.ptd@gmail.com"
+              @"tuanpt@hanoi.vssic.gov.vn"
             ] CC:@[] BCC:@[] subject:header message:@""
                                                   attachments:@[]
                                            delayedAttachments:@[]];

@@ -53,6 +53,7 @@ typedef void (^AuthViewControllerDismissHandler)(BOOL dismissed);
 
 
 - (void)presentFromRootAnimated:(BOOL)flag completion:(void (^)(void))completion;
+- (void)setLogin;
 
 @end
 

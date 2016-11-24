@@ -177,7 +177,7 @@ int current;
 }
 
 - (void)accountAdd:(id)sender {
-  [self accountAdd];
+  [self addAccount:YES];
 }
 
 - (SDSubCell *)item:(SDGroupCell *)item
@@ -237,7 +237,7 @@ int current;
       signout = [UIButton buttonWithType:UIButtonTypeCustom];
       [signout setFrame:CGRectMake(200, 10, 30, 30)];
       [signout addTarget:self
-                    action:@selector(accountAdd:)
+                    action:@selector(signOut:)
           forControlEvents:UIControlEventTouchUpInside];
       [signout setImage:[UIImage imageNamed:@"icon_sign_out.png"]
                forState:UIControlStateNormal];
@@ -813,7 +813,7 @@ int current;
       [self hideLeftViewoClick];
     }
   } else {
-    [self accountAdd];
+    [self addAccount:YES];
   }
 }
 
@@ -843,7 +843,7 @@ int current;
   [self.tableView endUpdates];
 }
 
-- (void)accountAdd {
+- (void)addAccount:(BOOL)isAdd {
 
   [self hideLeftViewoClick];
 
@@ -852,6 +852,9 @@ int current;
   nc.dismissOnSuccess = YES;
   nc.dismissOnError = YES;
   nc.delegate = self;
+    if (isAdd == YES) {
+        [nc setLogin];
+    }
   nc.navigationBar.titleTextAttributes =
       @{NSForegroundColorAttributeName : [UIColor whiteColor]};
   [nc.navigationBar
@@ -860,6 +863,10 @@ int current;
   [nc presentFromRootAnimated:YES completion:nil];
 
   return;
+}
+
+- (void)signOut:(id)sender {
+    [self addAccount:NO];
 }
 
 - (void)reloadMenu {

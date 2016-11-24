@@ -29,6 +29,9 @@
                   placeholder: (NSString*)placeholder;
 
 - (IBAction)textFieldFinished:(id)sender ;
+
+- (void)addBackButton;
+
 @property (nonatomic, strong) MCOIMAPOperation *imapCheckOp;
 @property (nonatomic, strong) MCOIMAPSession *imapSession;
 @property (nonatomic, strong) MCOSMTPSession *smtpSession;

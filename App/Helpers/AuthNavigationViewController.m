@@ -16,6 +16,7 @@
 #import "ListFileDocuments.h"
 
 #import "Constants.h"
+#import "LoginFormController.h"
 
 @interface AuthNavigationViewController () {
   AuthViewControllerCompletionHandler _completeHandler;
@@ -112,16 +113,29 @@
   [self.navigationController.navigationBar setTitleTextAttributes:@{
     NSForegroundColorAttributeName : [UIColor whiteColor]
   }];
-  MailTypeViewController *viewController =
-      [[MailTypeViewController alloc] init];
-  viewController.title = title;
-
-  self = [super initWithRootViewController:viewController];
+    // remove select mail type view
+//  MailTypeViewController *viewController =
+//      [[MailTypeViewController alloc] init];
+//  viewController.title = title;
+//
+//  self = [super initWithRootViewController:viewController];
+    LoginFormController *login = [[LoginFormController alloc] init];
+    self = [super initWithRootViewController:login];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"0"
+                                              forKey:@"mailtype"];
+    // other
+    
   if (self) {
     _dismissOnSuccess = NO;
     _dismissOnError = NO;
   }
   return self;
+}
+
+- (void)setLogin {
+    LoginFormController *login = (LoginFormController *)[self.viewControllers firstObject];
+    [login addBackButton];
 }
 
 // Preview Image

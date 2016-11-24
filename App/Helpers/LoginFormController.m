@@ -116,19 +116,7 @@ NSMutableArray *smtpportArr;
   [self.navigationController.navigationBar setTitleTextAttributes:@{
     NSForegroundColorAttributeName : [UIColor whiteColor]
   }];
-  UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-  [back setFrame:CGRectMake(0.0f, 0.0f, 22.0f, 22.0f)];
-  [back addTarget:self
-                action:@selector(backtoType:)
-      forControlEvents:UIControlEventTouchUpInside];
-  UIImage *backImage = [UIImage imageNamed:@"bt_back.png"];
-  //Đổ màu lam (mặc đinh) cho Image
-  // backImage = [backImage
-  // imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-  [back setImage:backImage forState:UIControlStateNormal];
-  UIBarButtonItem *backButton =
-      [[UIBarButtonItem alloc] initWithCustomView:back];
-
+    
   UIButton *continuebtn = [UIButton buttonWithType:UIButtonTypeCustom];
   [continuebtn setFrame:CGRectMake(0.0f, 0.0f, 22.0f, 22.0f)];
   [continuebtn addTarget:self
@@ -139,7 +127,6 @@ NSMutableArray *smtpportArr;
 
   UIBarButtonItem *continueButton =
       [[UIBarButtonItem alloc] initWithCustomView:continuebtn];
-  self.navigationItem.leftBarButtonItem = backButton;
   self.navigationItem.rightBarButtonItem = continueButton;
   self.navigationItem.title = NSLocalizedString(@"Login", nil);
   _tableView.backgroundView = nil;
@@ -148,8 +135,10 @@ NSMutableArray *smtpportArr;
   [_tableView setFrame:CGRectMake(0, 0, self.view.frame.size.width,
                                   self.view.frame.size.height)];
   UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:self.view.frame];
-  scroll.contentSize =
-      CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + 300);
+//  scroll.contentSize =
+//      CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + 300);
+    scroll.contentSize =
+    CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
   [scroll addSubview:_tableView];
   [self.view addSubview:scroll];
   
@@ -177,19 +166,51 @@ NSMutableArray *smtpportArr;
   [self.view addSubview:_tableView];
 }
 
+- (void)addBackButton {
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setFrame:CGRectMake(0.0f, 0.0f, 22.0f, 22.0f)];
+    [back addTarget:self
+             action:@selector(backtoType:)
+   forControlEvents:UIControlEventTouchUpInside];
+    UIImage *backImage = [UIImage imageNamed:@"bt_back.png"];
+    //Đổ màu lam (mặc đinh) cho Image
+    // backImage = [backImage
+    // imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [back setImage:backImage forState:UIControlStateNormal];
+    UIBarButtonItem *backButton =
+    [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
 - (void)fillDefaultAccountConfig {
-  self.displayname = @"Tuanpt";
-  self.name = @"tuanpt@hanoi.vssic.gov.vn";
-  self.password = @"1234567a@";
+//  remove fill default account config
+    
+//  self.displayname = @"Tuanpt";
+//  self.name = @"tuanpt@hanoi.vssic.gov.vn";
+//  self.password = @"1234567a@";
   
   self.imap = @"email.vssic.gov.vn";
-  self.imapEmail = @"tuanpt@hanoi.vssic.gov.vn";
-  self.imapPass = @"1234567a@";
+//  self.imapEmail = @"tuanpt@hanoi.vssic.gov.vn";
+//  self.imapPass = @"1234567a@";
   
   self.smtp = @"email.vssic.gov.vn";
-  self.smtpEmail = @"tuanpt@hanoi.vssic.gov.vn";
-  self.smtpPass = @"1234567a@";
+//  self.smtpEmail = @"tuanpt@hanoi.vssic.gov.vn";
+//  self.smtpPass = @"1234567a@";
   
+    displayname_Field = [self makeTextField:displayname_Field text:self.displayname placeholder:@""];
+    
+    imap_Field = [self makeTextField:imap_Field text:self.imap placeholder:@""];
+    imap_Field.text = self.imap;
+    
+    imapEmail_Field = [self makeTextField:imapEmail_Field text:self.imapEmail placeholder:@""];
+    imapPass_Field = [self makeTextField:imapPass_Field text:self.imapPass placeholder:@""];
+    
+    smtp_Field = [self makeTextField:smtp_Field text:self.smtp placeholder:@""];
+    smtp_Field.text = self.smtp;
+    
+    smtpEmail_Field = [self makeTextField:smtpEmail_Field text:self.smtpEmail placeholder:@""];
+    smtpPass_Field = [self makeTextField:smtpPass_Field text:self.smtpPass placeholder:@""];
+    
   [_tableView reloadData];
 }
 
@@ -407,49 +428,9 @@ NSMutableArray *smtpportArr;
 }
 
 - (void)backtoType:(id)sender {
-  [self.navigationController popViewControllerAnimated:YES];
+  [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (NSString *)tableView:(UITableView *)tableView
-  titleForHeaderInSection:(NSInteger)section {
-  NSString *sectionName;
-  switch (section) {
-  case 0:
-    sectionName = NSLocalizedString(@"UserInfo", nil);
-    break;
-  case 1:
-    sectionName = @"HOST IMAP";
-    break;
-  case 2:
-    sectionName = @"HOST SMTP";
-    break;
-  default:
-    sectionName = @"";
-    break;
-  }
-
-  if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"mailtype"]
-          isEqualToString:@"2"]) {
-    if (section == 1) {
-      sectionName = @"Trường hợp không thể đăng nhập";
-    }
-  }
-  return sectionName;
-}
-
-#pragma mark Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"mailtype"]
-          isEqual:@"0"]) {
-    return 3;
-    //}
-    //    else if ([[[NSUserDefaults
-    //    standardUserDefaults]objectForKey:@"mailtype"]isEqualToString:@"2"]) {
-    //        return 2;
-  } else {
-    return 1;
-  }
-}
 - (void)saveCustomerInfo {
 
 
@@ -559,8 +540,67 @@ NSMutableArray *smtpportArr;
 
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
-  return 3;
+//  return 3;
+    return 2;
 }
+
+#pragma mark - UITableView DataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"mailtype"]
+//         isEqual:@"0"]) {
+//        return 3;
+//    } else {
+        return 1;
+//    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section {
+//    if (section == 0) {
+        return 35;
+//    }
+//    return 15;
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section {
+    NSString *sectionName;
+    switch (section) {
+        case 0:
+            sectionName = NSLocalizedString(@"UserInfo", nil);
+            break;
+//        case 1:
+//            sectionName = @"HOST IMAP";
+//            break;
+//        case 2:
+//            sectionName = @"HOST SMTP";
+//            break;
+        default:
+            sectionName = @"";
+            break;
+    }
+//
+//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"mailtype"]
+//         isEqualToString:@"2"]) {
+//        if (section == 1) {
+//            sectionName = @"Trường hợp không thể đăng nhập";
+//        }
+//    }
+    return sectionName;
+}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.section == 0) {
+//        if (indexPath.row == 0) {
+//            return 0;
+//        } else {
+//            return 44.0f;
+//        }
+//    } else {
+//        return 0;
+//    }
+//}
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -571,23 +611,23 @@ NSMutableArray *smtpportArr;
   cell.selectionStyle = UITableViewCellSelectionStyleNone;
   UIFont *myFont = [UIFont systemFontOfSize:16.0];
   UITextField *tf;
-  switch (indexPath.section) {
-  case 0:
+//  switch (indexPath.section) {
+//  case 0:
     switch (indexPath.row) {
     case 0: {
-      cell.textLabel.text = NSLocalizedString(@"DisplayName", nil);
-      cell.textLabel.font = myFont;
-      tf = displayname_Field =
-          [self makeTextField:displayname_Field text:self.displayname placeholder:@""];
-      displayname_Field.autocapitalizationType =
-          UITextAutocapitalizationTypeWords;
-      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
-      tf.placeholder = @"Cherry Blossom";
-
-      [cell addSubview:displayname_Field];
-      break;
-    }
-    case 1: {
+//      cell.textLabel.text = NSLocalizedString(@"DisplayName", nil);
+//      cell.textLabel.font = myFont;
+//      tf = displayname_Field =
+//          [self makeTextField:displayname_Field text:self.displayname placeholder:@""];
+//      displayname_Field.autocapitalizationType =
+//          UITextAutocapitalizationTypeWords;
+//      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
+//      tf.placeholder = @"Cherry Blossom";
+//
+//      [cell addSubview:displayname_Field];
+//      break;
+//    }
+//    case 1: {
       cell.textLabel.text = NSLocalizedString(@"MailBox", nil);
       cell.textLabel.font = myFont;
       tf = name_Field = [self makeTextField:name_Field text:self.name placeholder:@""];
@@ -600,7 +640,8 @@ NSMutableArray *smtpportArr;
       [cell addSubview:name_Field];
       break;
     }
-    case 2: {
+//    case 2: {
+    case 1: {
       cell.textLabel.text = NSLocalizedString(@"Password", nil);
       cell.textLabel.font = myFont;
       tf = password_Field = [self makeTextField:password_Field text:self.password placeholder:@""];
@@ -614,80 +655,80 @@ NSMutableArray *smtpportArr;
       break;
     }
     }
-    break;
-  case 1:
-    switch (indexPath.row) {
-    case 0: {
-      cell.textLabel.text = NSLocalizedString(@"Address", nil);
-      cell.textLabel.font = myFont;
-      tf = imap_Field = [self makeTextField:imap_Field text:self.imap placeholder:@""];
-      tf.keyboardType = UIKeyboardTypeEmailAddress;
-      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
-      tf.placeholder = @"imap.company.com";
-      [cell addSubview:imap_Field];
-      break;
-    }
-    case 1: {
-      cell.textLabel.text = NSLocalizedString(@"Username", nil);
-      cell.textLabel.font = myFont;
-      tf = imapEmail_Field =
-      [self makeTextField:imapEmail_Field text:self.imapEmail placeholder:@""];
-      tf.keyboardType = UIKeyboardTypeEmailAddress;
-      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
-      tf.placeholder = NSLocalizedString(@"Required", nil);
-      [cell addSubview:imapEmail_Field];
-      break;
-    }
-    case 2: {
-      cell.textLabel.text = NSLocalizedString(@"Password", nil);
-      cell.textLabel.font = myFont;
-      tf = imapPass_Field = [self makeTextField:imapPass_Field text:self.imapPass placeholder:@""];
-      tf.secureTextEntry = YES;
-      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
-      tf.placeholder = @"●●●●●●●●";
-      [cell addSubview:imapPass_Field];
-      break;
-    }
-    }
-    break;
-  case 2:
-    switch (indexPath.row) {
-    case 0: {
-      cell.textLabel.text = NSLocalizedString(@"Address", nil);
-      cell.textLabel.font = myFont;
-      tf = smtp_Field = [self makeTextField:smtp_Field text:self.smtp placeholder:@""];
-      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
-      tf.keyboardType = UIKeyboardTypeEmailAddress;
-      tf.placeholder = @"smtp.company.com";
-      [cell addSubview:smtp_Field];
-      break;
-    }
-    case 1: {
-      cell.textLabel.text = NSLocalizedString(@"Username", nil);
-      cell.textLabel.font = myFont;
-      tf = smtpEmail_Field =
-      [self makeTextField:smtpEmail_Field text:self.smtpEmail placeholder:@""];
-      tf.keyboardType = UIKeyboardTypeEmailAddress;
-      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
-      tf.placeholder = NSLocalizedString(@"Optional", nil);
-      [cell addSubview:smtpEmail_Field];
-      break;
-    }
-    case 2: {
-      cell.textLabel.text = NSLocalizedString(@"Password", nil);
-      cell.textLabel.font = myFont;
-      tf = smtpPass_Field = [self makeTextField:smtpPass_Field text:self.smtpPass placeholder:@""];
-      tf.secureTextEntry = YES;
-      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
-      tf.placeholder = @"●●●●●●●●";
-      [cell addSubview:smtpPass_Field];
-      break;
-    }
-    }
-    break;
-  default:
-    break;
-  }
+//    break;
+//  case 1:
+//    switch (indexPath.row) {
+//    case 0: {
+//      cell.textLabel.text = NSLocalizedString(@"Address", nil);
+//      cell.textLabel.font = myFont;
+//      tf = imap_Field = [self makeTextField:imap_Field text:self.imap placeholder:@""];
+//      tf.keyboardType = UIKeyboardTypeEmailAddress;
+//      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
+//      tf.placeholder = @"imap.company.com";
+//      [cell addSubview:imap_Field];
+//      break;
+//    }
+//    case 1: {
+//      cell.textLabel.text = NSLocalizedString(@"Username", nil);
+//      cell.textLabel.font = myFont;
+//      tf = imapEmail_Field =
+//      [self makeTextField:imapEmail_Field text:self.imapEmail placeholder:@""];
+//      tf.keyboardType = UIKeyboardTypeEmailAddress;
+//      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
+//      tf.placeholder = NSLocalizedString(@"Required", nil);
+//      [cell addSubview:imapEmail_Field];
+//      break;
+//    }
+//    case 2: {
+//      cell.textLabel.text = NSLocalizedString(@"Password", nil);
+//      cell.textLabel.font = myFont;
+//      tf = imapPass_Field = [self makeTextField:imapPass_Field text:self.imapPass placeholder:@""];
+//      tf.secureTextEntry = YES;
+//      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
+//      tf.placeholder = @"●●●●●●●●";
+//      [cell addSubview:imapPass_Field];
+//      break;
+//    }
+//    }
+//    break;
+//  case 2:
+//    switch (indexPath.row) {
+//    case 0: {
+//      cell.textLabel.text = NSLocalizedString(@"Address", nil);
+//      cell.textLabel.font = myFont;
+//      tf = smtp_Field = [self makeTextField:smtp_Field text:self.smtp placeholder:@""];
+//      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
+//      tf.keyboardType = UIKeyboardTypeEmailAddress;
+//      tf.placeholder = @"smtp.company.com";
+//      [cell addSubview:smtp_Field];
+//      break;
+//    }
+//    case 1: {
+//      cell.textLabel.text = NSLocalizedString(@"Username", nil);
+//      cell.textLabel.font = myFont;
+//      tf = smtpEmail_Field =
+//      [self makeTextField:smtpEmail_Field text:self.smtpEmail placeholder:@""];
+//      tf.keyboardType = UIKeyboardTypeEmailAddress;
+//      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
+//      tf.placeholder = NSLocalizedString(@"Optional", nil);
+//      [cell addSubview:smtpEmail_Field];
+//      break;
+//    }
+//    case 2: {
+//      cell.textLabel.text = NSLocalizedString(@"Password", nil);
+//      cell.textLabel.font = myFont;
+//      tf = smtpPass_Field = [self makeTextField:smtpPass_Field text:self.smtpPass placeholder:@""];
+//      tf.secureTextEntry = YES;
+//      tf.frame = CGRectMake(120, 7, self.view.frame.size.width - 130, 30);
+//      tf.placeholder = @"●●●●●●●●";
+//      [cell addSubview:smtpPass_Field];
+//      break;
+//    }
+//    }
+//    break;
+//  default:
+//    break;
+//  }
 
   // Workaround to dismiss keyboard when Done/Return is tapped
   [tf addTarget:self
@@ -695,6 +736,8 @@ NSMutableArray *smtpportArr;
       forControlEvents:UIControlEventEditingDidEndOnExit];
   tf.delegate = self;
 
+    cell.clipsToBounds = YES;
+    
   return cell;
 }
 
@@ -732,14 +775,6 @@ NSMutableArray *smtpportArr;
   // [sender resignFirstResponder];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-    heightForHeaderInSection:(NSInteger)section {
-  if (section == 0) {
-    return 35;
-  }
-  return 15;
-}
-
 // Textfield value changed, store the new value.
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -749,49 +784,54 @@ NSMutableArray *smtpportArr;
   return NO;
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-  if (textField == name_Field) {
-    imapEmail_Field.text = name_Field.text;
-    smtpEmail_Field.text = name_Field.text;
-  } else if (textField == password_Field) {
-    imapPass_Field.text = password_Field.text;
-    smtpPass_Field.text = password_Field.text;
-  }
-  return YES;
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//  if (textField == name_Field) {
+////    imapEmail_Field.text = name_Field.text;
+////    smtpEmail_Field.text = name_Field.text;
+//      self.imapEmail = name_Field.text;
+//      self.smtpEmail = name_Field.text;
+//  } else if (textField == password_Field) {
+////    imapPass_Field.text = password_Field.text;
+////    smtpPass_Field.text = password_Field.text;
+//      self.imapPass = password_Field.text;
+//      self.smtpPass = password_Field.text;
+//  }
+//  return YES;
+//}
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
   if (textField == name_Field) {
     self.name = textField.text;
     self.imapEmail = textField.text;
     self.smtpEmail = textField.text;
-//    if ([textField.text rangeOfString:@"@vdc.com.vn"].location != NSNotFound) {
-//      imap_Field.text = imap_ = @"mail.vdc.com.vn";
-//      smtp_Field.text = smtp_ = @"smtp.vdc.com.vn";
-//    }
+      imapEmail_Field.text = textField.text;
+      smtpEmail_Field.text = textField.text;
   } else if (textField == displayname_Field) {
     self.displayname = textField.text;
   } else if (textField == password_Field) {
     self.password = textField.text;
     self.imapPass = textField.text;
     self.smtpPass = textField.text;
-  } else if (textField == imap_Field) {
-    self.imap = textField.text;
-  } else if (textField == imapport_Field) {
-    self.imapport = textField.text;
-  } else if (textField == smtp_Field) {
-    self.smtp = textField.text;
-  } else if (textField == smtpport_Field) {
-    self.smtpport = textField.text;
-  } else if (textField == smtpPass_Field) {
-    self.smtpPass = textField.text;
-  } else if (textField == smtpEmail_Field) {
-    self.smtpEmail = textField.text;
-  } else if (textField == imapEmail_Field) {
-    self.imapEmail = textField.text;
-  } else if (textField == imapPass_Field) {
-    self.imapPass = textField.text;
+      imapPass_Field.text = textField.text;
+      smtpPass_Field.text = textField.text;
   }
+//  else if (textField == imap_Field) {
+//    self.imap = textField.text;
+//  } else if (textField == imapport_Field) {
+//    self.imapport = textField.text;
+//  } else if (textField == smtp_Field) {
+//    self.smtp = textField.text;
+//  } else if (textField == smtpport_Field) {
+//    self.smtpport = textField.text;
+//  } else if (textField == smtpPass_Field) {
+//    self.smtpPass = textField.text;
+//  } else if (textField == smtpEmail_Field) {
+//    self.smtpEmail = textField.text;
+//  } else if (textField == imapEmail_Field) {
+//    self.imapEmail = textField.text;
+//  } else if (textField == imapPass_Field) {
+//    self.imapPass = textField.text;
+//  }
 }
 
 - (void)alertView:(UIAlertView *)alertView
@@ -838,6 +878,17 @@ NSMutableArray *smtpportArr;
   NSPredicate *emailTest =
       [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
   return [emailTest evaluateWithObject:checkString];
+}
+
+- (NSString *)getNameFromEmail:(NSString *)email {
+    if (email == nil || email.length == 0) {
+        return @"";
+    }
+    NSArray *subStrings = [email componentsSeparatedByString:@"@"];
+    if (subStrings.count > 0) {
+        return subStrings.firstObject;
+    }
+    return  @"";
 }
 
 @end
