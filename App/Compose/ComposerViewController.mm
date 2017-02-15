@@ -24,9 +24,6 @@
 
 #import "CheckNetWork.h"
 #import "MsgListViewController.h"
-#import "SoftTokenEncrypt.h"
-#import "SoftTokenEncrypt.h"
-#import "SoftTokenSign.h"
 
 #import "Base64.h"
 #import "DBManager.h"
@@ -35,8 +32,6 @@
 #import "pem.h"
 #import "x509.h"
 
-#import "HardTokenMethod.h"
-#import "HardTokenSign.h"
 #import "TokenType.h"
 #import "WebService.h"
 
@@ -46,8 +41,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "ListAllFolders.h"
-#import "VerifyMethod.h"
 #import "Constants.h"
+
+#import "ComposeCommonMethod.h"
 
 #define SKIPERR 13
 
@@ -840,95 +836,6 @@ typedef enum {
 - (void)alertView:(UIAlertView *)alertView
     clickedButtonAtIndex:(NSInteger)buttonIndex {
 
-  if (alertView.tag == 0) {
-    if (buttonIndex == 1) {
-      sign_ = NO;
-      encrypto_ = NO;
-      HardTokenMethod *hud = [[HardTokenMethod alloc] init];
-      [hud dismissGlobalHUD];
-      [self dismissViewControllerAnimated:YES completion:nil];
-    }
-  }
-
-  if (alertView.tag == passwordHT) {
-    if (buttonIndex == 1) {
-      [alertView dismissWithClickedButtonIndex:0 animated:YES];
-      NSString *passwrd = [[alertView textFieldAtIndex:0] text];
-      HardTokenMethod *initMethod = [[HardTokenMethod alloc] init];
-      if ([initMethod connect]) {
-        long ckrv = 1;
-        ckrv = [initMethod
-            VerifyPIN:[passwrd cStringUsingEncoding:NSASCIIStringEncoding]];
-        if (ckrv) {
-          [self reloadMenuView];
-        } else {
-          // Kiểm tra chứng thư
-          HardTokenMethod *hud = [[HardTokenMethod alloc] init];
-          [hud showGlobalProgressHUDWithTitle:NSLocalizedString(@"VerifyCert",
-                                                                nil)];
-
-          dispatch_async(
-              dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                  if (![VerifyMethod selfverifyCertificate]) {
-                    [[NSUserDefaults standardUserDefaults]
-                        setObject:passwrd
-                           forKey:@"HardPasswrd"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                  } else {
-                    [self reloadMenuView];
-                  }
-                });
-                dispatch_async(dispatch_get_main_queue(), ^{
-                  [hud dismissGlobalHUD];
-                });
-              });
-        }
-      } else {
-        [self reloadMenuView];
-      }
-    } else {
-      [self reloadMenuView];
-    }
-  }
-
-  if (alertView.tag == passwordST) {
-    if (buttonIndex == 1) {
-      [alertView dismissWithClickedButtonIndex:0 animated:YES];
-      NSString *passwrd = [[alertView textFieldAtIndex:0] text];
-      SoftTokenSign *initMethod = [[SoftTokenSign alloc] init];
-      if (![initMethod connectSoftToken:passwrd]) {
-        [self reloadMenuView];
-      } else {
-        // Kiểm tra chứng thư
-        HardTokenMethod *hud = [[HardTokenMethod alloc] init];
-        [hud showGlobalProgressHUDWithTitle:NSLocalizedString(@"VerifyCert",
-                                                              nil)];
-        dispatch_async(
-            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              dispatch_async(dispatch_get_main_queue(), ^{
-                if (![VerifyMethod selfverifyCertificate]) {
-                  [[NSUserDefaults standardUserDefaults] setObject:passwrd
-                                                            forKey:@"passwrd"];
-                  [[NSUserDefaults standardUserDefaults] synchronize];
-                  [[NSUserDefaults standardUserDefaults] setBool:NO
-                                                          forKey:@"reload"];
-                  [[NSUserDefaults standardUserDefaults] synchronize];
-
-                } else {
-                  [self reloadMenuView];
-                }
-              });
-              dispatch_async(dispatch_get_main_queue(), ^{
-                [hud dismissGlobalHUD];
-              });
-            });
-      }
-    } else {
-      [self reloadMenuView];
-    }
-  }
-
   if (alertView.tag == SKIPERR) {
     if (buttonIndex == 0) {
       [self rollBackSendBtn];
@@ -1029,96 +936,6 @@ typedef enum {
 }
 
 - (void)sendEmailOper {
-
-  // Gửi mail mã hoá; nhiều người
-  if (encrypto_) {
-    NSArray *toArray = [self emailArrayFromString:toField.text];
-    NSArray *ccArray = [self emailArrayFromString:ccField.text];
-    NSMutableArray *invalidEmail = [[NSMutableArray alloc] init];
-    emailHaveCert = [[NSMutableArray alloc] init];
-
-    for (int i = 0; i < [toArray count]; i++) {
-      BOOL check = [self checkEmailHaveCert:[toArray objectAtIndex:i]];
-      if (!check) {
-        [invalidEmail addObject:[toArray objectAtIndex:i]];
-      } else {
-        [emailHaveCert addObject:[toArray objectAtIndex:i]];
-      }
-    }
-
-    for (int i = 0; i < [ccArray count]; i++) {
-      BOOL check = [self checkEmailHaveCert:[ccArray objectAtIndex:i]];
-      if (!check) {
-        [invalidEmail addObject:[ccArray objectAtIndex:i]];
-      } else {
-        [emailHaveCert addObject:[ccArray objectAtIndex:i]];
-      }
-    }
-
-    if ([invalidEmail count] > 0 && [emailHaveCert count] > 0) {
-      NSString *stringEmail = [invalidEmail componentsJoinedByString:@","];
-      NSLog(@"Email that not have cert to encrypt is %@", stringEmail);
-      NSString *msg = [NSString
-          stringWithFormat:@"%@ %@", NSLocalizedString(@"ListErrMail", nil),
-                           stringEmail];
-      [self.view endEditing:YES];
-      FUIAlertView *alertView = [[FUIAlertView alloc]
-              initWithTitle:nil
-                    message:msg
-                   delegate:self
-          cancelButtonTitle:NSLocalizedString(@"Back", nil)
-          otherButtonTitles:NSLocalizedString(@"SendSkipErr", nil), nil];
-      alertView.messageLabel.textColor = [UIColor asbestosColor];
-      alertView.messageLabel.font =
-          [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
-      alertView.backgroundOverlay.backgroundColor =
-          [[UIColor blackColor] colorWithAlphaComponent:0.8];
-      alertView.alertContainer.backgroundColor = [UIColor cloudsColor];
-      alertView.defaultButtonColor = [UIColor cloudsColor];
-      alertView.defaultButtonShadowColor = [UIColor cloudsColor];
-      alertView.defaultButtonFont =
-          [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-      alertView.defaultButtonTitleColor = [UIColor belizeHoleColor];
-      alertView.tag = SKIPERR;
-      [alertView show];
-    } else if ([invalidEmail count] > 0 && [emailHaveCert count] == 0) {
-      FUIAlertView *alertView = [[FUIAlertView alloc]
-              initWithTitle:nil
-                    message:NSLocalizedString(@"AllErrMail", nil)
-                   delegate:self
-          cancelButtonTitle:NSLocalizedString(@"Back", nil)
-          otherButtonTitles:nil];
-      alertView.messageLabel.textColor = [UIColor asbestosColor];
-      alertView.messageLabel.font =
-          [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
-      alertView.backgroundOverlay.backgroundColor =
-          [[UIColor blackColor] colorWithAlphaComponent:0.8];
-      alertView.alertContainer.backgroundColor = [UIColor cloudsColor];
-      alertView.defaultButtonColor = [UIColor cloudsColor];
-      alertView.defaultButtonShadowColor = [UIColor cloudsColor];
-      alertView.defaultButtonFont =
-          [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-      alertView.defaultButtonTitleColor = [UIColor belizeHoleColor];
-      alertView.tag = SKIPERR;
-      [alertView show];
-    } else if ([invalidEmail count] == 0) {
-      for (int i = 0; i < [emailHaveCert count]; i++) {
-        NSMutableArray *arr = [[NSMutableArray alloc] init];
-        [arr addObject:[emailHaveCert objectAtIndex:i]];
-        [self sendEmailto:arr
-                         cc:@[]
-                        bcc:@[]
-                withSubject:subjectField.text
-                   withBody:[messageBox.text
-                                stringByReplacingOccurrencesOfString:@"\n"
-                                                          withString:@"<br />"]
-            withAttachments:_attachmentsArray];
-      }
-      sign_ = NO;
-      encrypto_ = NO;
-      [self dismissViewControllerAnimated:YES completion:nil];
-    }
-  } else {
     // Gửi bình thường
     [self sendEmailto:[self emailArrayFromString:toField.text]
                      cc:[self emailArrayFromString:ccField.text]
@@ -1128,39 +945,7 @@ typedef enum {
                             stringByReplacingOccurrencesOfString:@"\n"
                                                       withString:@"<br />"]
         withAttachments:_attachmentsArray];
-
-    sign_ = NO;
-    encrypto_ = NO;
     [self dismissViewControllerAnimated:YES completion:nil];
-  }
-}
-
-- (BOOL)checkEmailHaveCert:(NSString *)to_ {
-
-  // Build "to" Maibox, parse DisplayName+Mailbox if exists
-  NSRange prefix = [to_ rangeOfString:@"<"];
-  NSRange endfix = [to_ rangeOfString:@">"];
-  if (prefix.location != NSNotFound && endfix.location != NSNotFound) {
-    NSString *to_parse = [to_ substringFromIndex:prefix.location + 1];
-    NSRange end = [to_parse rangeOfString:@">"];
-    to_ = [to_parse substringToIndex:end.location];
-  }
-
-  // Get cert
-  NSArray *receiverArr = [[DBManager getSharedInstance] findByEmail:to_];
-  if (receiverArr) {
-    return YES;
-  } else {
-    // Get webservice
-    WebService *initWebBase = [[WebService alloc] init];
-    NSString *certContent = [initWebBase GetCertMail:to_];
-    if (certContent.length > 20) {
-      [ComposeCommonMethod saveCertToDatabaseBy:to_ andCert:certContent];
-      return YES;
-    } else {
-      return NO;
-    }
-  }
 }
 
 // Lấy dữ liệu Attachments từ Document Path
@@ -1512,245 +1297,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info;
   if (!sign_ && !encrypto_) {
     sendOperation = [smtpSession sendOperationWithData:rfc822Data];
   }
-
-  if (sign_ && encrypto_) {
-    /* Ký và mã hoá */
-    NSLog(@"Ký và mã hoá");
-    [builder setHTMLBody:body];
-    rfc822Data = [builder data];
-    NSString *string_RFC = [[NSString alloc] initWithData:rfc822Data
-                                                 encoding:NSUTF8StringEncoding];
-    NSString *SMIME = nil;
-
-    // Ký SOFTTOKEN
-    if (token_ == SOFTTOKEN) {
-      SoftTokenSign *signdata = [[SoftTokenSign alloc] init];
-      SMIME = [signdata signMail:string_RFC
-                            from:username
-                              to:to_
-                              cc:cc_
-                         subject:subject];
-    }
-    // Ký HARDTOKEN
-    if (token_ == HARDTOKEN) {
-      HardTokenMethod *connect = [[HardTokenMethod alloc] init];
-      if ([connect connect]) {
-        HardTokenSign *signdata = [[HardTokenSign alloc] init];
-        SMIME = [signdata signMail_H:string_RFC:username:to_:cc_:subject];
-      }
-    }
-
-    if (!SMIME) {
-      UIAlertView *alert =
-          [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
-                                     message:NSLocalizedString(@"NoToken", nil)
-                                    delegate:nil
-                           cancelButtonTitle:NSLocalizedString(@"Ok", nil)
-                           otherButtonTitles:nil];
-      [alert show];
-    } else {
-
-      // Build "to" Maibox, parse DisplayName + Mailbox if exists
-      NSRange prefix = [to_ rangeOfString:@"<"];
-      NSRange endfix = [to_ rangeOfString:@">"];
-      NSString *to_Address = to_;
-      if (prefix.location != NSNotFound && endfix.location != NSNotFound) {
-        NSString *to_parse = [to_ substringFromIndex:prefix.location + 1];
-        NSRange end = [to_parse rangeOfString:@">"];
-        to_Address = [to_parse substringToIndex:end.location];
-      }
-
-      // Get cert
-      NSString *certdata;
-      NSArray *receiverArr =
-          [[DBManager getSharedInstance] findByEmail:to_Address];
-      if (receiverArr) {
-        certdata = [receiverArr objectAtIndex:1];
-      }
-      if (!receiverArr) {
-        // Get webservice
-        WebService *initWebBase = [[WebService alloc] init];
-        NSString *certContent = [initWebBase GetCertMail:to_Address];
-        if (certContent.length > 20) {
-          certdata = certContent;
-        } else {
-          UIAlertView *alertView = [[UIAlertView alloc]
-                  initWithTitle:NSLocalizedString(@"DbError", nil)
-                        message:NSLocalizedString(@"DbError_CertUser", nil)
-                       delegate:nil
-              cancelButtonTitle:NSLocalizedString(@"Ok", nil)
-              otherButtonTitles:nil];
-          [alertView show];
-          goto err;
-        }
-      }
-      // Build cert
-      if ([certdata rangeOfString:@"\n"].location == NSNotFound) {
-        NSData *temp = [certdata base64DecodedData];
-        certdata = [temp base64EncodedStringWithWrapWidth:64];
-      }
-      if (certdata) {
-        certdata = [NSString
-            stringWithFormat:
-                @"-----BEGIN CERTIFICATE-----\n%@\n-----END CERTIFICATE-----\n",
-                certdata];
-      }
-      NSString *certPath =
-          [NSTemporaryDirectory() stringByAppendingPathComponent:@"smout.cer"];
-      [certdata writeToFile:certPath
-                 atomically:YES
-                   encoding:NSUTF8StringEncoding
-                      error:nil];
-      // Encrypt and Start
-      SoftTokenEncrypt *encrypt = [[SoftTokenEncrypt alloc] init];
-      NSString *SMIME_ = [encrypt encrypMail:SMIME
-                                        from:username
-                                          to:to_
-                                          cc:cc_
-                                     subject:subject];
-      rfc822Data = [SMIME_ dataUsingEncoding:NSUTF8StringEncoding];
-      sendOperation = [smtpSession sendOperationWithData:rfc822Data];
-    }
-
-  } else if (sign_ && !encrypto_) {
-    /* Ký SOFTTOKEN */
-    if (token_ == SOFTTOKEN) {
-      NSLog(@"Ký SOFTTOKEN");
-      [builder setHTMLBody:body];
-      rfc822Data = [builder data];
-      NSString *string_RFC =
-          [[NSString alloc] initWithData:rfc822Data
-                                encoding:NSUTF8StringEncoding];
-
-      SoftTokenSign *signdata = [[SoftTokenSign alloc] init];
-      NSString *SMIME = [signdata signMail:string_RFC
-                                      from:username
-                                        to:to_
-                                        cc:cc_
-                                   subject:subject];
-      if (!SMIME) {
-        UIAlertView *alert = [[UIAlertView alloc]
-                initWithTitle:NSLocalizedString(@"Error", nil)
-                      message:NSLocalizedString(@"NoToken", nil)
-                     delegate:nil
-            cancelButtonTitle:NSLocalizedString(@"Ok", nil)
-            otherButtonTitles:nil];
-        [alert show];
-      } else {
-        rfc822Data = [SMIME dataUsingEncoding:NSUTF8StringEncoding];
-        sendOperation = [smtpSession sendOperationWithData:rfc822Data];
-      }
-    }
-
-    /* Ký HARDTOKEN */
-    if (token_ == HARDTOKEN) {
-      NSLog(@"Ký HARDTOKEN");
-      [builder setHTMLBody:body];
-      rfc822Data = [builder data];
-      NSString *string_RFC =
-          [[NSString alloc] initWithData:rfc822Data
-                                encoding:NSUTF8StringEncoding];
-
-      HardTokenMethod *connect = [[HardTokenMethod alloc] init];
-      if ([connect connect]) {
-        HardTokenSign *signdata = [[HardTokenSign alloc] init];
-        NSString *SMIME =
-            [signdata signMail_H:string_RFC:username:to_:cc_:subject];
-        if (!SMIME) {
-          UIAlertView *alert = [[UIAlertView alloc]
-                  initWithTitle:NSLocalizedString(@"Error", nil)
-                        message:NSLocalizedString(@"NoToken", nil)
-                       delegate:nil
-              cancelButtonTitle:NSLocalizedString(@"Ok", nil)
-              otherButtonTitles:nil];
-          [alert show];
-        } else {
-          rfc822Data = [SMIME dataUsingEncoding:NSUTF8StringEncoding];
-          sendOperation = [smtpSession sendOperationWithData:rfc822Data];
-        }
-      }
-    }
-  } else if (!sign_ && encrypto_) {
-    NSLog(@"Mã hoá");
-    if ([to count] > 1 || [cc count] > 0 || [bcc count] > 0) {
-      UIAlertView *alertView = [[UIAlertView alloc]
-              initWithTitle:NSLocalizedString(@"Notifi", nil)
-                    message:NSLocalizedString(@"EncryptMailError_Send", nil)
-                   delegate:nil
-          cancelButtonTitle:NSLocalizedString(@"Ok", nil)
-          otherButtonTitles:nil];
-      [alertView show];
-      goto err;
-    }
-    // Build content of Messager
-    [builder setHTMLBody:body];
-    rfc822Data = [builder data];
-    NSString *string_RFC = [[NSString alloc] initWithData:rfc822Data
-                                                 encoding:NSUTF8StringEncoding];
-
-    // Build "to" Maibox, parse DisplayName + Mailbox if exists
-    NSRange prefix = [to_ rangeOfString:@"<"];
-    NSRange endfix = [to_ rangeOfString:@">"];
-    NSString *to_Address = to_;
-    if (prefix.location != NSNotFound && endfix.location != NSNotFound) {
-      NSString *to_parse = [to_ substringFromIndex:prefix.location + 1];
-      NSRange end = [to_parse rangeOfString:@">"];
-      to_Address = [to_parse substringToIndex:end.location];
-    }
-
-    // Get cert
-    NSString *certdata;
-    NSArray *receiverArr =
-        [[DBManager getSharedInstance] findByEmail:to_Address];
-    if (receiverArr) {
-      certdata = [receiverArr objectAtIndex:1];
-    }
-    if (!receiverArr) {
-      // Get webservice
-      WebService *initWebBase = [[WebService alloc] init];
-      NSString *certContent = [initWebBase GetCertMail:to_Address];
-      if (certContent.length > 20) {
-        certdata = certContent;
-      } else {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                initWithTitle:NSLocalizedString(@"Notifi", nil)
-                      message:NSLocalizedString(@"EncryptMailError_NoCert", nil)
-                     delegate:nil
-            cancelButtonTitle:NSLocalizedString(@"Ok", nil)
-            otherButtonTitles:nil];
-        [alertView show];
-        goto err;
-      }
-    }
-    // Build cert
-    if ([certdata rangeOfString:@"\n"].location == NSNotFound) {
-      NSData *temp = [certdata base64DecodedData];
-      certdata = [temp base64EncodedStringWithWrapWidth:64];
-    }
-    if (certdata) {
-      certdata = [NSString
-          stringWithFormat:
-              @"-----BEGIN CERTIFICATE-----\n%@\n-----END CERTIFICATE-----\n",
-              certdata];
-    }
-    NSString *certPath =
-        [NSTemporaryDirectory() stringByAppendingPathComponent:@"smout.cer"];
-    [certdata writeToFile:certPath
-               atomically:YES
-                 encoding:NSUTF8StringEncoding
-                    error:nil];
-    // Encrypt and Start
-    SoftTokenEncrypt *encrypt = [[SoftTokenEncrypt alloc] init];
-    NSString *SMIME = [encrypt encrypMail:string_RFC
-                                     from:username
-                                       to:to_
-                                       cc:cc_
-                                  subject:subject];
-    rfc822Data = [SMIME dataUsingEncoding:NSUTF8StringEncoding];
-    sendOperation = [smtpSession sendOperationWithData:rfc822Data];
-    // Test only
-    NSLog(@"SendOperation = %@", SMIME);
-  }
+    
 err:
   NSLog(@"Send Operation");
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;

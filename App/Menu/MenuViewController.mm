@@ -21,7 +21,6 @@
 #import "TokenType.h"
 #import "AuthNavigationViewController.h"
 
-#import "HardTokenMethod.h"
 #import "SDSelectableCell.h"
 #import "SDGroupCell.h"
 #import "SDSubCell.h"

@@ -36,7 +36,6 @@
 
 #import "CheckNetWork.h"
 
-#import "VerifyMethod.h"
 
 static NSString *fromEmail;
 

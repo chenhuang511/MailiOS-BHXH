@@ -24,10 +24,6 @@
 
 //HoangTD edit
 #import "TokenType.h"
-//#import "HardTokenMethod.h"
-//#import "TokenProtectTable.h"
-//#import "SoftTokenSign.h"
-//#import "ListCertTableViewController.h"
 
 #import "MyCache.h"
 #import "DBManager.h"
@@ -182,32 +178,17 @@ static BOOL flagUnSeen;
                                            selector:@selector(finishedAuth)
                                                name:@"Finished_OAuth"
                                              object:nil];
-//  HoangTD edit
-//  [[NSNotificationCenter defaultCenter] addObserver:self
-//                                           selector:@selector(finishedFirstAuth)
-//                                               name:@"Finished_FirstOAuth"
-//                                             object:nil];
+
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(reloadMessage)
                                                name:@"reloadMessage"
                                              object:nil];
-//  [[NSNotificationCenter defaultCenter] addObserver:self
-//                                           selector:@selector(listCertSoft)
-//                                               name:@"softTokenCall"
-//                                             object:nil];
-//  [[NSNotificationCenter defaultCenter] addObserver:self
-//                                           selector:@selector(listCertHard)
-//                                               name:@"listCertHard"
-//                                             object:nil];
+
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(selectedTableRow)
                                                name:@"closePopOver"
                                              object:nil];
-//  HoangTD edit
-//  [[NSNotificationCenter defaultCenter] addObserver:self
-//                                           selector:@selector(checkProtected)
-//                                               name:@"checkProtected"
-//                                             object:nil];
+
 
   CGRect frame = self.view.frame;
   if (self.splitViewController) {
@@ -370,133 +351,6 @@ static BOOL flagUnSeen;
   }
 }
 
-//HoangTD edit
-//// Khởi tạo danh sách chứng thư
-//- (void)listCertSoft {
-//  ListCertTableViewController *controller = [[ListCertTableViewController alloc]
-//      initWithNibName:@"ListCertTableViewController"
-//               bundle:nil];
-//  controller.TokenType = @"SoftToken";
-//  popover = [[FPPopoverController alloc] initWithViewController:controller];
-//  CGFloat x = [UIScreen mainScreen].bounds.size.width / 2;
-//  CGFloat y = [UIScreen mainScreen].bounds.size.height / 2;
-//  popover.contentSize = CGSizeMake(300, 280);
-//  popover.arrowDirection = FPPopoverNoArrow;
-//  UIInterfaceOrientation orientation =
-//      [UIApplication sharedApplication].statusBarOrientation;
-//  if (orientation == UIInterfaceOrientationPortrait) {
-//    [popover presentPopoverFromPoint:CGPointMake(x, y - 140)];
-//  } else {
-//    [popover presentPopoverFromPoint:CGPointMake(x + 140, y - 140)];
-//  }
-//  NSArray *cert = [ListCertTableViewController shareTitleLabel];
-//  if ([cert count] == 0) {
-//    [popover dismissPopoverAnimated:YES];
-//    UIWindow *window = [[UIApplication sharedApplication] delegate].window;
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
-//    hud.mode = MBProgressHUDModeCustomView;
-//    hud.dimBackground = YES;
-//    hud.customView =
-//        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spam.png"]];
-//    hud.labelText = NSLocalizedString(@"NoCertToken", nil);
-//    hud.margin = 10.0f;
-//    hud.removeFromSuperViewOnHide = YES;
-//    [hud hide:YES afterDelay:3];
-//  }
-//}
-//
-//- (void)listCertHard {
-//  ListCertTableViewController *htController =
-//      [[ListCertTableViewController alloc]
-//          initWithNibName:@"ListCertTableViewController"
-//                   bundle:nil];
-//  htController.TokenType = @"HardToken";
-//  popover = [[FPPopoverController alloc] initWithViewController:htController];
-//  popover.contentSize = CGSizeMake(300, 280);
-//  popover.arrowDirection = FPPopoverNoArrow;
-//  CGFloat x = [UIScreen mainScreen].bounds.size.width / 2;
-//  CGFloat y = [UIScreen mainScreen].bounds.size.height / 2;
-//  popover.contentSize = CGSizeMake(300, 280);
-//  popover.arrowDirection = FPPopoverNoArrow;
-//  UIInterfaceOrientation orientation =
-//      [UIApplication sharedApplication].statusBarOrientation;
-//  if (orientation == UIInterfaceOrientationPortrait) {
-//    [popover presentPopoverFromPoint:CGPointMake(x, y - 140)];
-//  } else {
-//    [popover presentPopoverFromPoint:CGPointMake(x + 140, y - 140)];
-//  }
-//  NSArray *cert = [ListCertTableViewController shareTitleLabel];
-//  if ([cert count] == 0) {
-//    [popover dismissPopoverAnimated:YES];
-//    UIWindow *window = [[UIApplication sharedApplication] delegate].window;
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
-//    hud.mode = MBProgressHUDModeCustomView;
-//    hud.dimBackground = YES;
-//    hud.customView =
-//        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spam.png"]];
-//    hud.labelText = NSLocalizedString(@"NoCertToken", nil);
-//    hud.margin = 10.0f;
-//    hud.removeFromSuperViewOnHide = YES;
-//    [hud hide:YES afterDelay:3];
-//  }
-//}
-//
-//// Chọn kiểu Token
-//- (void)chooseTypeTokenCall {
-//  NSLog(@"FIST AUTH");
-//  UIAlertView *alertView =
-//      [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Config", nil)
-//                                 message:NSLocalizedString(@"TokenType", nil)
-//                                delegate:self
-//                       cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-//                       otherButtonTitles:@"Soft Token", @"Hard Token", nil];
-//
-//  alertView.tag = checkFistAuth;
-//  [alertView show];
-//}
-//
-//// Kết nối SoftToken
-//- (void)softTokenCall {
-//  UIAlertView *alertPin =
-//      [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TokenPass", nil)
-//                                 message:nil
-//                                delegate:self
-//                       cancelButtonTitle:NSLocalizedString(@"Out", nil)
-//                       otherButtonTitles:NSLocalizedString(@"Ok", nil), nil];
-//  [alertPin setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-//  alertPin.tag = passwordST;
-//  [alertPin show];
-//}
-//
-//// Kết nối HardToken
-//- (void)hardTokenCall {
-//  UIAlertView *alertPin =
-//      [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TokenPass", nil)
-//                                 message:nil
-//                                delegate:self
-//                       cancelButtonTitle:NSLocalizedString(@"Out", nil)
-//                       otherButtonTitles:NSLocalizedString(@"Ok", nil), nil];
-//  [alertPin setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-//  alertPin.tag = passwordHT;
-//  [alertPin show];
-//}
-
-//HoangTD edit
-// Đóng danh sách chứng thư khi chọn một chứng thư bất kỳ
-//- (void)selectedTableRow {
-//  [popover dismissPopoverAnimated:YES];
-//  UIWindow *window = [[UIApplication sharedApplication] delegate].window;
-//  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
-//  hud.mode = MBProgressHUDModeCustomView;
-//  hud.dimBackground = YES;
-//  hud.customView = [[UIImageView alloc]
-//      initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-//  hud.labelText = NSLocalizedString(@"ChooseCertSuccess", nil);
-//  hud.margin = 10.0f;
-//  hud.removeFromSuperViewOnHide = YES;
-//  [hud hide:YES afterDelay:1.5];
-//}
-
 - (void)scrolltoEnd {
   if (self.tableView.contentSize.height > self.tableView.frame.size.height) {
     CGPoint offset = CGPointMake(0, self.tableView.contentSize.height -
@@ -523,39 +377,6 @@ static BOOL flagUnSeen;
     [self loadAccount];
   }];
 }
-
-// HoangTD edit
-//- (void)finishedFirstAuth {
-//  NSString *accIndex =
-//      [[NSUserDefaults standardUserDefaults] objectForKey:@"accIndex"];
-//  NSMutableArray *listAccount =
-//      [[NSUserDefaults standardUserDefaults] objectForKey:@"listAccount"];
-//  if (accIndex != nil) {
-//    mailtype = [[[NSUserDefaults standardUserDefaults]
-//        objectForKey:@"mailtype"] integerValue];
-//    username = [listAccount objectAtIndex:([accIndex intValue] + 1)];
-//  }
-//  NSString *tokenType =
-//      [[[DBManager getSharedInstance] findTokenTypeByEmail:username]
-//          objectAtIndex:0];
-//
-//  // Tìm chứng thư trùng email
-//  ListCertTableViewController *lstCert =
-//      [[ListCertTableViewController alloc] init];
-//  handel = [lstCert checkEmailHandel];
-//  if (handel > 0) {
-//    UIAlertView *alertView = [[UIAlertView alloc]
-//            initWithTitle:NSLocalizedString(@"Config", nil)
-//                  message:NSLocalizedString(@"SelectCertDefault", nil)
-//                 delegate:self
-//        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-//        otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
-//    alertView.tag = selectCertDefault;
-//    [alertView show];
-//  } else {
-//    [self chooseTypeTokenCall];
-//  }
-//}
 
 - (void)loadAccount {
   [self loadEmailsWithCache:NO];
@@ -2378,55 +2199,8 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
   [self.tableView reloadData];
 }
 
-//HoangTD edit
-//- (void)verifyHardPin:(NSString *)passwrd {
-//  HardTokenMethod *initMethod = [[HardTokenMethod alloc] init];
-//  if ([initMethod connect]) {
-//    long ckrv = 1;
-//    ckrv = [initMethod
-//        VerifyPIN:[passwrd cStringUsingEncoding:NSASCIIStringEncoding]];
-//    if (!ckrv) {
-//      [[NSNotificationCenter defaultCenter] postNotificationName:@"listCertHard"
-//                                                          object:nil];
-//    }
-//  };
-//}
-
 - (void)alertView:(UIAlertView *)alertView
     clickedButtonAtIndex:(NSInteger)buttonIndex {
-
-//  HoangTD
-//  if (alertView.tag == passwordHT) {
-//    if (buttonIndex == 1) {
-//      [alertView dismissWithClickedButtonIndex:-1 animated:YES];
-//      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
-//                     dispatch_get_main_queue(), ^{
-//                       NSString *passwrd =
-//                           [[alertView textFieldAtIndex:0] text];
-//                       [self verifyHardPin:passwrd];
-//                     });
-//    }
-//  }
-//
-//  if (alertView.tag == passwordST) {
-//    if (buttonIndex == 1) {
-//      [alertView dismissWithClickedButtonIndex:-1 animated:YES];
-//      NSString *passwrd = [[alertView textFieldAtIndex:0] text];
-//      SoftTokenSign *initMethod = [[SoftTokenSign alloc] init];
-//      if ([initMethod connectSoftToken:passwrd]) {
-//        if (handel > 0) {
-//          ListCertTableViewController *lstCert =
-//              [[ListCertTableViewController alloc] init];
-//          [lstCert selectCertificateDefault:handel];
-//          handel = 0;
-//        } else {
-//          [[NSNotificationCenter defaultCenter]
-//              postNotificationName:@"softTokenCall"
-//                            object:nil];
-//        }
-//      }
-//    }
-//  }
 
   if (alertView.tag == checkInternet) {
     CheckNetWork *init = [[CheckNetWork alloc] init];
@@ -2445,115 +2219,7 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
       [[AuthManager sharedManager] refresh_logout];
     }
   }
-
-//  HoangTD edit
-//  if (alertView.tag == checkFistAuth) {
-//    if (buttonIndex == 1) {
-//      NSLog(@"SOFT TOKEN");
-//      UIApplication *ourApplication = [UIApplication sharedApplication];
-//      NSURL *ourURL = [NSURL URLWithString:@"vnptcatokenmanager://?emailcall"];
-//      if ([ourApplication canOpenURL:ourURL]) {
-//        [self softTokenCall];
-//      } else {
-//        UIAlertView *alertView = [[UIAlertView alloc]
-//                initWithTitle:NSLocalizedString(@"Error", nil)
-//                      message:NSLocalizedString(@"NotSetup", nil)
-//                     delegate:nil
-//            cancelButtonTitle:NSLocalizedString(@"Ok", nil)
-//            otherButtonTitles:nil];
-//        [alertView show];
-//      }
-//    }
-//
-//    if (buttonIndex == 2) {
-//      NSLog(@"HARD TOKEN");
-//      [self hardTokenCall];
-//    }
-//  }
-//
-//  if (alertView.tag == protectMail) {
-//    NSString *passwrd = [[alertView textFieldAtIndex:0] text];
-//    NSString *tokenProtectType = [
-//        [[DBManager getSharedInstance] findProtected:username] objectAtIndex:0];
-//    [alertView dismissWithClickedButtonIndex:0 animated:YES];
-//
-//    if ([tokenProtectType isEqualToString:@"1"]) {
-//      TokenProtectTable *checkPassSoft = [[TokenProtectTable alloc] init];
-//      if ([checkPassSoft checkPassSoft:passwrd]) {
-//        [self loadEmailsWithCache:NO];
-//        unlockMail = YES;
-//      } else {
-//        [self showProtectAlertView:1 message:1];
-//      }
-//    }
-//
-//    if ([tokenProtectType isEqualToString:@"2"]) {
-//      HardTokenMethod *conn = [[HardTokenMethod alloc] init];
-//      if ([conn connect_nonAlert]) {
-//        if (![conn VerifyPIN_NonAlert:
-//                       [passwrd cStringUsingEncoding:NSASCIIStringEncoding]]) {
-//          NSString *serial = [HardTokenMethod shareSerial];
-//          NSString *serialH =
-//              [[[DBManager getSharedInstance] findProtected:username]
-//                  objectAtIndex:1];
-//          if ([[HardTokenMethod sha1:serial] isEqualToString:serialH]) {
-//            [[NSUserDefaults standardUserDefaults] setObject:passwrd
-//                                                      forKey:@"HardPasswrd"];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-//            [self loadEmailsWithCache:NO];
-//            unlockMail = YES;
-//          } else {
-//            [self showProtectAlertView:2 message:1];
-//          }
-//        } else {
-//          [self showProtectAlertView:2 message:1];
-//        }
-//      } else {
-//        [self showProtectAlertView:2 message:1];
-//      }
-//    }
-//  }
-//
-//  if (alertView.tag == selectCertDefault) {
-//    if (buttonIndex == 0) {
-//      [self chooseTypeTokenCall];
-//    }
-//    if (buttonIndex == 1) {
-//      if (handel > 0) {
-//        [self softTokenCall];
-//      }
-//    }
-//  }
 }
-
-//HoangTD edit
-//- (void)showProtectAlertView:(int)tokenProtectType message:(int)message {
-//
-//  NSString *title = nil;
-//  NSString *msg = nil;
-//
-//  if (tokenProtectType == 1) {
-//    title = NSLocalizedString(@"SoftPass", nil);
-//  } else {
-//    title = NSLocalizedString(@"HardPass", nil);
-//  }
-//
-//  if (message == 1) {
-//    msg = NSLocalizedString(@"LoginTokenFail", nil);
-//  } else {
-//    msg = NSLocalizedString(@"LoginTokenNotInsert", nil);
-//  }
-//
-//  UIAlertView *alertPin =
-//      [[UIAlertView alloc] initWithTitle:title
-//                                 message:msg
-//                                delegate:self
-//                       cancelButtonTitle:nil
-//                       otherButtonTitles:NSLocalizedString(@"Ok", nil), nil];
-//  [alertPin setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-//  alertPin.tag = protectMail;
-//  [alertPin show];
-//}
 
 - (void)passDestFolderName:(MoveToMailboxes *)controller
      didFinishEnteringItem:(NSString *)destFolder

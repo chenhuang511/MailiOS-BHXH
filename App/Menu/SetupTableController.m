@@ -7,13 +7,11 @@
 //
 
 #import "SetupTableController.h"
-#import "TokenProtectTable.h"
 #import "MsgListViewController.h"
 #import "AppDelegate.h"
 #import "DBManager.h"
 #import "TokenType.h"
 #import "HardTokenMethod.h"
-#import "SoftTokenSign.h"
 #import "PrivatePolicy.h"
 #import "DBManager.h"
 
