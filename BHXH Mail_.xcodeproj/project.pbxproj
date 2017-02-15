@@ -4834,6 +4834,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BHXH Mail_.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8297VN9BF6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4883,7 +4884,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.bhxhmail;
 				PRODUCT_NAME = "BHXH Mail_.temp_caseinsensitive_rename";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1019c8b9-44ff-4171-86f1-204f591beb3b";
+				PROVISIONING_PROFILE_SPECIFIER = "BHXH Mail New";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -4904,6 +4906,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BHXH Mail_.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8297VN9BF6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4953,8 +4956,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.bhxhmail;
 				PRODUCT_NAME = "BHXH Mail_.temp_caseinsensitive_rename";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1019c8b9-44ff-4171-86f1-204f591beb3b";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "566d87a0-5795-4c73-ba5e-ed620964d79c";
+				PROVISIONING_PROFILE_SPECIFIER = "BHXH Mail New";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
 				VALID_ARCHS = "armv7 armv7s arm64";
