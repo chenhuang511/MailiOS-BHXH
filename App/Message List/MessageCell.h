@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *attachmentTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *attachementIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *signIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarIcon;
 
 - (void)setMessage:(MCOIMAPMessage *)message;
 

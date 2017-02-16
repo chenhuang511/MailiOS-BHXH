@@ -1762,11 +1762,11 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
       CGRectMake(self.view.frame.size.width - 150 - 10, 3, 150, 20);
   [cell.dateTextField setFrame:dateTextFrame];
   CGRect fromTextFrame = CGRectMake(
-      20, 3, self.view.frame.size.width - dateTextFrame.size.width - 5, 20);
+      75, 3, self.view.frame.size.width - dateTextFrame.size.width - 5, 20);
   [cell.fromTextField setFrame:fromTextFrame];
 
   if (cell.signIcon.alpha == 1) {
-    CGRect subjectTextFrame = CGRectMake(20, cellHeight / 2 - 20,
+CGRect subjectTextFrame = CGRectMake(75, cellHeight / 2 - 20,
                                          self.view.frame.size.width - 45, 40);
     [cell.subjectTextField setFrame:subjectTextFrame];
     CGRect signIconFrame =
@@ -1774,15 +1774,15 @@ if (![yourApplication canOpenURL:mcaLogonURL]) {
     [cell.signIcon setFrame:signIconFrame];
   } else {
     CGRect subjectTextFrame = CGRectMake(
-        20, cellHeight / 2 - 20, self.view.frame.size.width - 20 - 10, 40);
+        75, cellHeight / 2 - 20, self.view.frame.size.width - 20 - 10, 40);
     [cell.subjectTextField setFrame:subjectTextFrame];
     CGRect signIconFrame = CGRectMake(0, 0, 0, 0);
     [cell.signIcon setFrame:signIconFrame];
   }
-  CGRect attachmentFrame = CGRectMake(20, cellHeight - 13 - 6, 12, 12);
+  CGRect attachmentFrame = CGRectMake(75, cellHeight - 13 - 6, 12, 12);
   [cell.attachementIcon setFrame:attachmentFrame];
   CGRect attachmentTitle = CGRectMake(
-      40, cellHeight - 13 - 10, self.view.frame.size.width - 20 - 20 - 10, 20);
+      95, cellHeight - 13 - 10, self.view.frame.size.width - 20 - 20 - 10, 20);
   [cell.attachmentTextField setFrame:attachmentTitle];
 
   // READ, UNREAD, FLAG View

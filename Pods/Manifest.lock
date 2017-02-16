@@ -1,0 +1,21 @@
+PODS:
+  - UIImageView-Letters (1.1.4)
+
+DEPENDENCIES:
+  - UIImageView-Letters (from `https://github.com/bachonk/UIImageView-Letters`)
+
+EXTERNAL SOURCES:
+  UIImageView-Letters:
+    :git: https://github.com/bachonk/UIImageView-Letters
+
+CHECKOUT OPTIONS:
+  UIImageView-Letters:
+    :commit: 300ebb7695018356f3d56e388e47090e577f4d97
+    :git: https://github.com/bachonk/UIImageView-Letters
+
+SPEC CHECKSUMS:
+  UIImageView-Letters: f62db28076797adf3560ab7410647dc6899b9eef
+
+PODFILE CHECKSUM: 602f2b5bca2c9a573d469a1485dd18e249150398
+
+COCOAPODS: 1.2.0

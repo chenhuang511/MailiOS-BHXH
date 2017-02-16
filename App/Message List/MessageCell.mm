@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AuthManager.h"
 #import "MenuViewController.h"
+#import "UIImageView+Letters.h"
 
 @implementation MessageCell
 
@@ -94,24 +95,6 @@
     // Giảm 1 file attachment (smime.p7s-m-b-z) nếu mail được ký
     NSUInteger count = attachments.count;
 
-//HoangTD edit
-//   Ép kiểu MCOIMapMessage về NSString
-//  NSString *fullMSN = [NSString stringWithFormat:@"%@", message];
- //  if (!([fullMSN rangeOfString:@"pkcs7" options:NSCaseInsensitiveSearch]
-//            .location == NSNotFound) &&
-//      !([fullMSN rangeOfString:@"filename: smime.p7"].location == NSNotFound)) {
-//    count = count - 1;
-//    self.signIcon.alpha = 1;
-//    if (!([fullMSN rangeOfString:@"smime.p7s"].location == NSNotFound)) {
-//      UIImage *image = [UIImage imageNamed:@"msglist_cert.png"];
-//      [self.signIcon setImage:image];
-//    }
-//    if (!([fullMSN rangeOfString:@"smime.p7m"].location == NSNotFound)) {
-//      UIImage *image = [UIImage imageNamed:@"mail_encrypt.png"];
-//      [self.signIcon setImage:image];
-//    }
-//  }
-
   if (count > 0) {
     [self.attachementIcon setImage:[UIImage imageNamed:@"attachment"]];
     MCOAttachment *firstAttachment = message.attachments[0];
@@ -138,6 +121,10 @@
     [self.attachementIcon setImage:[UIImage imageNamed:@"blank"]];
     self.attachmentTextField.text = nil;
   }
+    
+  //avatar
+  [self.avatarIcon setImageWithString:self.fromTextField.text color:nil circular:true textAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Futura-Medium" size:20.0f], NSForegroundColorAttributeName:[UIColor whiteColor]}];
+
 }
 
 - (void)insertContactwithDisplayName:(NSString *)displayName

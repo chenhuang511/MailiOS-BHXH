@@ -45,6 +45,7 @@
 		52EA242B1AEB7CBF0079904F /* blue_dot_unread.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EA242A1AEB7CBF0079904F /* blue_dot_unread.png */; };
 		52EA242E1AEB7FA70079904F /* mix_dot_unread_flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EA242C1AEB7FA70079904F /* mix_dot_unread_flag.png */; };
 		52EA242F1AEB7FA70079904F /* yellow_dot_flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EA242D1AEB7FA70079904F /* yellow_dot_flag.png */; };
+		5E3132B86BD5B753AC5848FC /* libPods-BHXH Mail_.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2DEEA0B5C2A874A48F3E936 /* libPods-BHXH Mail_.a */; };
 		66145484197530A20057834B /* bg_login_ipad_landscape.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66145482197530A20057834B /* bg_login_ipad_landscape.jpg */; };
 		66145485197530A20057834B /* bg_login_ipad_portrait.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66145483197530A20057834B /* bg_login_ipad_portrait.jpg */; };
 		6615D2411973C93000F31218 /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 6615D2401973C93000F31218 /* send.png */; };
@@ -451,6 +452,7 @@
 
 /* Begin PBXFileReference section */
 		02D6AE7D17A27D680044ACF7 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		34ED49B4D8676482A5315795 /* Pods-BHXH Mail_.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BHXH Mail_.release.xcconfig"; path = "Pods/Target Support Files/Pods-BHXH Mail_/Pods-BHXH Mail_.release.xcconfig"; sourceTree = "<group>"; };
 		3AA93B081A247C01004D630A /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
 		3AA93B091A247C01004D630A /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		3AA93B0A1A247C01004D630A /* ios-ntp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ios-ntp.h"; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 		525A39511A885FC400975D36 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		5267786D1B06D150002A58B8 /* ComposeCommonMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeCommonMethod.h; sourceTree = "<group>"; };
 		5267786E1B06D150002A58B8 /* ComposeCommonMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeCommonMethod.m; sourceTree = "<group>"; };
+		529483188B07EC70E3C7BF78 /* Pods-BHXH Mail_.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BHXH Mail_.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BHXH Mail_/Pods-BHXH Mail_.debug.xcconfig"; sourceTree = "<group>"; };
 		52AABE021AA6BAD300043954 /* TRAddressBookCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAddressBookCellFactory.h; sourceTree = "<group>"; };
 		52AABE031AA6BAD300043954 /* TRAddressBookCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAddressBookCellFactory.m; sourceTree = "<group>"; };
 		52AABE041AA6BAD300043954 /* TRAddressBookSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAddressBookSource.h; sourceTree = "<group>"; };
@@ -563,6 +566,8 @@
 		746628CC1D27AEEB004F39F4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		746628D41D27DF7B004F39F4 /* mail_acc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail_acc.png; sourceTree = "<group>"; };
 		746628D51D27DF7B004F39F4 /* mail_acc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail_acc@2x.png"; sourceTree = "<group>"; };
+		749CBFEA1E5474BC0060D1A1 /* libUIImageView-Letters.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUIImageView-Letters.a"; path = "Pods/../build/Debug-iphoneos/UIImageView-Letters/libUIImageView-Letters.a"; sourceTree = "<group>"; };
+		749CBFF51E5476580060D1A1 /* BHXH Mail_.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = "BHXH Mail_.xcworkspace"; sourceTree = "<group>"; };
 		7C13D98819AB1CF500D5AFE9 /* FixedNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedNavigationController.h; sourceTree = "<group>"; };
 		7C13D98919AB1CF500D5AFE9 /* FixedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixedNavigationController.m; sourceTree = "<group>"; };
 		7C13D98E19AB310800D5AFE9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -939,6 +944,7 @@
 		EAE28E5C17B4D01E00B7F505 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		F147C6DF19A740A8005A0BA0 /* MyCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCache.h; sourceTree = "<group>"; };
 		F147C6E019A740A8005A0BA0 /* MyCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCache.m; sourceTree = "<group>"; };
+		F2DEEA0B5C2A874A48F3E936 /* libPods-BHXH Mail_.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BHXH Mail_.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -971,6 +977,7 @@
 				8399E57B178F53C0001EFEDC /* MobileCoreServices.framework in Frameworks */,
 				ABE4026B173F3FCE007F1FB3 /* ImageIO.framework in Frameworks */,
 				AB7BA4481713913F00104953 /* CFNetwork.framework in Frameworks */,
+				5E3132B86BD5B753AC5848FC /* libPods-BHXH Mail_.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1533,6 +1540,7 @@
 				C7C71C1518E3D52D009E3B88 /* Images.xcassets */,
 				C7287ECA199612FB003C0420 /* BHXH Mail_.entitlements */,
 				C7AF2DD019F65E7A005C1F2E /* mailcore2.xcodeproj */,
+				BFC1CE13E45ADB8574190FFE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1547,6 +1555,8 @@
 		AB9EAE04170368F000D750C7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				749CBFF51E5476580060D1A1 /* BHXH Mail_.xcworkspace */,
+				749CBFEA1E5474BC0060D1A1 /* libUIImageView-Letters.a */,
 				5250FABE1BAAC7D7009C8EAB /* libsqlite3.dylib */,
 				5250FABC1BAAC7C0009C8EAB /* libicucore.A.dylib */,
 				5250FABA1BAAC7A2009C8EAB /* libstdc++.6.0.9.dylib */,
@@ -1574,6 +1584,7 @@
 				AB9EAE05170368F000D750C7 /* UIKit.framework */,
 				AB9EAE07170368F000D750C7 /* Foundation.framework */,
 				AB9EAE09170368F000D750C7 /* CoreGraphics.framework */,
+				F2DEEA0B5C2A874A48F3E936 /* libPods-BHXH Mail_.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1635,6 +1646,15 @@
 				BCDC33E117F065A20033998E /* libGContacts.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		BFC1CE13E45ADB8574190FFE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				529483188B07EC70E3C7BF78 /* Pods-BHXH Mail_.debug.xcconfig */,
+				34ED49B4D8676482A5315795 /* Pods-BHXH Mail_.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		C70230301A41381000316951 /* MGSwipeTableCell */ = {
@@ -1829,9 +1849,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB9EAE28170368F000D750C7 /* Build configuration list for PBXNativeTarget "BHXH Mail_" */;
 			buildPhases = (
+				223E68C52380BD67FB360AA2 /* [CP] Check Pods Manifest.lock */,
 				AB9EADFE170368F000D750C7 /* Sources */,
 				AB9EADFF170368F000D750C7 /* Frameworks */,
 				AB9EAE00170368F000D750C7 /* Resources */,
+				A5139CE40A54AC32B86E22CD /* [CP] Embed Pods Frameworks */,
+				FF26790351A6F590727C6CFB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2203,6 +2226,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		223E68C52380BD67FB360AA2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A5139CE40A54AC32B86E22CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BHXH Mail_/Pods-BHXH Mail_-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF26790351A6F590727C6CFB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BHXH Mail_/Pods-BHXH Mail_-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AB9EADFE170368F000D750C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -2423,6 +2494,7 @@
 		};
 		AB9EAE29170368F000D750C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 529483188B07EC70E3C7BF78 /* Pods-BHXH Mail_.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
@@ -2440,7 +2512,6 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Vendor",
-					"$(SRCROOT)/Vendor/FilePicker",
 					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2448,6 +2519,7 @@
 				GCC_PREFIX_HEADER = "App/BHXH Mail_.temp_caseinsensitive_rename-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					/usr/include/libxml2,
 					"$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/**",
 					"$(SRCROOT)/VNPTCASoftHSM/openssl/**",
@@ -2460,10 +2532,12 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
 					"$(SRCROOT)/mailcore2-master/Externals/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/UIImageView-Letters",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-lctemplate-ios",
 					"-letpan-ios",
 					"-lxml2",
@@ -2487,7 +2561,7 @@
 				PROVISIONING_PROFILE = "1019c8b9-44ff-4171-86f1-204f591beb3b";
 				PROVISIONING_PROFILE_SPECIFIER = "BHXH Mail New";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2495,6 +2569,7 @@
 		};
 		AB9EAE2A170368F000D750C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34ED49B4D8676482A5315795 /* Pods-BHXH Mail_.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
@@ -2512,7 +2587,6 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Vendor",
-					"$(SRCROOT)/Vendor/FilePicker",
 					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2520,6 +2594,7 @@
 				GCC_PREFIX_HEADER = "App/BHXH Mail_.temp_caseinsensitive_rename-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					/usr/include/libxml2,
 					"$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/**",
 					"$(SRCROOT)/VNPTCASoftHSM/openssl/**",
@@ -2532,10 +2607,12 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
 					"$(SRCROOT)/mailcore2-master/Externals/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/UIImageView-Letters",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-lctemplate-ios",
 					"-letpan-ios",
 					"-lxml2",
@@ -2560,7 +2637,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "566d87a0-5795-4c73-ba5e-ed620964d79c";
 				PROVISIONING_PROFILE_SPECIFIER = "BHXH Mail New";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/apptentive-ios-master/ApptentiveConnect/source/** $(SRCROOT)/VNPTCASoftHSM/openssl/** $(SRCROOT)/VNPTCAHardToken/** $(SRCROOT)/VNPTCASoftHSM/**";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

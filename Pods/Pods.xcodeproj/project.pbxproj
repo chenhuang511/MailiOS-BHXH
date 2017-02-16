@@ -1,0 +1,470 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D356CB36CB4106BECC20FA599CD4754 /* UIImageView+Letters.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F97F3AD255418C20C54721ACB74D438 /* UIImageView+Letters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90F98BDE9C7EE4FB95442E7D86000666 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		95B4451498FFE2230A174CE2777EA9A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		976A70EFD398BF75C9F1B6B2E274D6FA /* Pods-BHXH Mail_-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 321FBC7C3B06ED1CA647FAC2B9BF334B /* Pods-BHXH Mail_-dummy.m */; };
+		9ED87C6D3F93E0B0DD551E7C9682DBF3 /* UIImageView+Letters.m in Sources */ = {isa = PBXBuildFile; fileRef = 87234D2C636176EE2265CA1BEE8B172A /* UIImageView+Letters.m */; };
+		EE783F3A4345579F1BDC6C980043C259 /* UIImageView-Letters-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B73B32AE85F5B0C9F59A943E5E3AA4 /* UIImageView-Letters-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		291D54696E49480204781A56F467CBBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49AD7CC8A262BF2BB37AA8EDA9BEC3A6;
+			remoteInfo = "UIImageView-Letters";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		179723835037C94FC55FC7FC61659751 /* Pods-BHXH Mail_-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BHXH Mail_-frameworks.sh"; sourceTree = "<group>"; };
+		321FBC7C3B06ED1CA647FAC2B9BF334B /* Pods-BHXH Mail_-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BHXH Mail_-dummy.m"; sourceTree = "<group>"; };
+		4B7384C28C9BA614B9E16D543E1C1141 /* UIImageView-Letters-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImageView-Letters-prefix.pch"; sourceTree = "<group>"; };
+		4F97F3AD255418C20C54721ACB74D438 /* UIImageView+Letters.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Letters.h"; path = "UIImageView+Letters/UIImageView+Letters.h"; sourceTree = "<group>"; };
+		66B73B32AE85F5B0C9F59A943E5E3AA4 /* UIImageView-Letters-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImageView-Letters-dummy.m"; sourceTree = "<group>"; };
+		7414D98C0C46B8C8A08FA314E13CA324 /* libUIImageView-Letters.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libUIImageView-Letters.a"; path = "libUIImageView-Letters.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7584F37877D12B241DD555DA38ABD21B /* Pods-BHXH Mail_-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BHXH Mail_-resources.sh"; sourceTree = "<group>"; };
+		76247730C0435CAB4126F43483A19A1F /* Pods-BHXH Mail_-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BHXH Mail_-acknowledgements.markdown"; sourceTree = "<group>"; };
+		87234D2C636176EE2265CA1BEE8B172A /* UIImageView+Letters.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Letters.m"; path = "UIImageView+Letters/UIImageView+Letters.m"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BAEF205CCA52599F93CA2DF0C2232B6B /* Pods-BHXH Mail_-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BHXH Mail_-acknowledgements.plist"; sourceTree = "<group>"; };
+		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D57885D466537077DC9275E3E2ACD61A /* UIImageView-Letters.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "UIImageView-Letters.xcconfig"; sourceTree = "<group>"; };
+		D92F1927B265DB20DA19E487377E13C7 /* Pods-BHXH Mail_.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BHXH Mail_.debug.xcconfig"; sourceTree = "<group>"; };
+		E7792CD263EA2511A824D90C116DF999 /* libPods-BHXH Mail_.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BHXH Mail_.a"; path = "libPods-BHXH Mail_.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6B99E2384DC3376E208B585F1EB6AD3 /* Pods-BHXH Mail_.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BHXH Mail_.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		15309E9A76384910F97FAE522A035135 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95B4451498FFE2230A174CE2777EA9A7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B7BF624E0060BFD235D5051B32B5D97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90F98BDE9C7EE4FB95442E7D86000666 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		12FF8A2F814EFD0511AE24154C256598 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7792CD263EA2511A824D90C116DF999 /* libPods-BHXH Mail_.a */,
+				7414D98C0C46B8C8A08FA314E13CA324 /* libUIImageView-Letters.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		38F637F8A2B1220B5416CEC26A228363 /* UIImageView-Letters */ = {
+			isa = PBXGroup;
+			children = (
+				4F97F3AD255418C20C54721ACB74D438 /* UIImageView+Letters.h */,
+				87234D2C636176EE2265CA1BEE8B172A /* UIImageView+Letters.m */,
+				AE390BB5E34D6B9319F942D0A6FC7FFA /* Support Files */,
+			);
+			name = "UIImageView-Letters";
+			path = "UIImageView-Letters";
+			sourceTree = "<group>";
+		};
+		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				DAA5006E2B65B19F6E241CE9A1F42BAC /* Pods */,
+				12FF8A2F814EFD0511AE24154C256598 /* Products */,
+				B0861C7DA8E249FF1654FCE314E826F3 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		AE390BB5E34D6B9319F942D0A6FC7FFA /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D57885D466537077DC9275E3E2ACD61A /* UIImageView-Letters.xcconfig */,
+				66B73B32AE85F5B0C9F59A943E5E3AA4 /* UIImageView-Letters-dummy.m */,
+				4B7384C28C9BA614B9E16D543E1C1141 /* UIImageView-Letters-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/UIImageView-Letters";
+			sourceTree = "<group>";
+		};
+		B0861C7DA8E249FF1654FCE314E826F3 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C1509EF700F8ECF751B36C7A4BCB1AE4 /* Pods-BHXH Mail_ */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1509EF700F8ECF751B36C7A4BCB1AE4 /* Pods-BHXH Mail_ */ = {
+			isa = PBXGroup;
+			children = (
+				76247730C0435CAB4126F43483A19A1F /* Pods-BHXH Mail_-acknowledgements.markdown */,
+				BAEF205CCA52599F93CA2DF0C2232B6B /* Pods-BHXH Mail_-acknowledgements.plist */,
+				321FBC7C3B06ED1CA647FAC2B9BF334B /* Pods-BHXH Mail_-dummy.m */,
+				179723835037C94FC55FC7FC61659751 /* Pods-BHXH Mail_-frameworks.sh */,
+				7584F37877D12B241DD555DA38ABD21B /* Pods-BHXH Mail_-resources.sh */,
+				D92F1927B265DB20DA19E487377E13C7 /* Pods-BHXH Mail_.debug.xcconfig */,
+				F6B99E2384DC3376E208B585F1EB6AD3 /* Pods-BHXH Mail_.release.xcconfig */,
+			);
+			name = "Pods-BHXH Mail_";
+			path = "Target Support Files/Pods-BHXH Mail_";
+			sourceTree = "<group>";
+		};
+		DAA5006E2B65B19F6E241CE9A1F42BAC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				38F637F8A2B1220B5416CEC26A228363 /* UIImageView-Letters */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		247F7D3FBF5578F6103B84D10CC499C4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D356CB36CB4106BECC20FA599CD4754 /* UIImageView+Letters.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1D7988AEC7386D4679673C250088CF19 /* Pods-BHXH Mail_ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E930FE1378324342061BCEFD78D94774 /* Build configuration list for PBXNativeTarget "Pods-BHXH Mail_" */;
+			buildPhases = (
+				70E08D4C3F89698BBF1A1FA4C1EE8739 /* Sources */,
+				15309E9A76384910F97FAE522A035135 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AACDCE26007ED1D283CE599757E33E1B /* PBXTargetDependency */,
+			);
+			name = "Pods-BHXH Mail_";
+			productName = "Pods-BHXH Mail_";
+			productReference = E7792CD263EA2511A824D90C116DF999 /* libPods-BHXH Mail_.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		49AD7CC8A262BF2BB37AA8EDA9BEC3A6 /* UIImageView-Letters */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15FCD061C21A075AA73895ADD3168D07 /* Build configuration list for PBXNativeTarget "UIImageView-Letters" */;
+			buildPhases = (
+				C3044627211C87866D27EA4CE1FD19C3 /* Sources */,
+				5B7BF624E0060BFD235D5051B32B5D97 /* Frameworks */,
+				247F7D3FBF5578F6103B84D10CC499C4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "UIImageView-Letters";
+			productName = "UIImageView-Letters";
+			productReference = 7414D98C0C46B8C8A08FA314E13CA324 /* libUIImageView-Letters.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 12FF8A2F814EFD0511AE24154C256598 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D7988AEC7386D4679673C250088CF19 /* Pods-BHXH Mail_ */,
+				49AD7CC8A262BF2BB37AA8EDA9BEC3A6 /* UIImageView-Letters */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		70E08D4C3F89698BBF1A1FA4C1EE8739 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				976A70EFD398BF75C9F1B6B2E274D6FA /* Pods-BHXH Mail_-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3044627211C87866D27EA4CE1FD19C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9ED87C6D3F93E0B0DD551E7C9682DBF3 /* UIImageView+Letters.m in Sources */,
+				EE783F3A4345579F1BDC6C980043C259 /* UIImageView-Letters-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AACDCE26007ED1D283CE599757E33E1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "UIImageView-Letters";
+			target = 49AD7CC8A262BF2BB37AA8EDA9BEC3A6 /* UIImageView-Letters */;
+			targetProxy = 291D54696E49480204781A56F467CBBE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		015A368F878AC3E2CEAE21DDE8026304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		078A740AC06FC42FABD1CA519BF9BCB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6B99E2384DC3376E208B585F1EB6AD3 /* Pods-BHXH Mail_.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		44CDBB6D11DE06DB64D6268622BDC47E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		48E45A8138C672548CD3797D59DFDD9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D92F1927B265DB20DA19E487377E13C7 /* Pods-BHXH Mail_.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		68B6317E0A216FA305E3FADD9951072C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D57885D466537077DC9275E3E2ACD61A /* UIImageView-Letters.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/UIImageView-Letters/UIImageView-Letters-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CD4075928A2E41285CD1C95DDAE58EDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D57885D466537077DC9275E3E2ACD61A /* UIImageView-Letters.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/UIImageView-Letters/UIImageView-Letters-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		15FCD061C21A075AA73895ADD3168D07 /* Build configuration list for PBXNativeTarget "UIImageView-Letters" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68B6317E0A216FA305E3FADD9951072C /* Debug */,
+				CD4075928A2E41285CD1C95DDAE58EDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				015A368F878AC3E2CEAE21DDE8026304 /* Debug */,
+				44CDBB6D11DE06DB64D6268622BDC47E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E930FE1378324342061BCEFD78D94774 /* Build configuration list for PBXNativeTarget "Pods-BHXH Mail_" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48E45A8138C672548CD3797D59DFDD9F /* Debug */,
+				078A740AC06FC42FABD1CA519BF9BCB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
